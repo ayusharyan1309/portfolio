@@ -20,8 +20,9 @@ export default function Contact() {
               </svg>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-gray-200 mb-1">Location</h3>
-              <p className="text-sm text-gray-400">Gurugram, Haryana, India</p>
+              <h3 className="text-sm font-semibold text-gray-200 mb-1">Location & Availability</h3>
+              <p className="text-sm text-gray-400">Hyderabad, Telangana, India</p>
+              <p className="text-xs text-[#12d640] mt-1.5">Open to Remote · Hybrid · On-Site</p>
             </div>
           </div>
 

@@ -93,7 +93,7 @@ export default function Hero() {
         <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#12d640]/20 bg-[#12d640]/5 animate-fade-in">
           <span className="w-2 h-2 bg-[#12d640] rounded-full animate-pulse" />
           <span className="text-xs sm:text-sm text-[#12d640] font-medium">
-            Available for Opportunities — Gurugram, India
+            Open to Remote · Hybrid · On-Site — Anywhere
           </span>
         </div>
 

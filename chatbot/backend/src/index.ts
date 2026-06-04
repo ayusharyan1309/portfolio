@@ -242,6 +242,51 @@ router.post('/api/chat', async (request: Request, env: Env) => {
 })
 
 /**
+ * Proxy /api/admin requests to the Python backend
+ */
+router.all('/api/admin/:path+', async (request: Request, env: Env) => {
+  const pythonBackendUrl = env.PYTHON_BACKEND_URL
+  if (!pythonBackendUrl) {
+    return new Response(
+      JSON.stringify({ error: 'Python backend URL not configured.' }),
+      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
+    )
+  }
+
+  const url = new URL(request.url)
+  const targetUrl = new URL(url.pathname + url.search, pythonBackendUrl)
+
+  try {
+    const proxyRequest = new Request(targetUrl.toString(), {
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+      redirect: 'follow',
+    })
+
+    const response = await fetch(proxyRequest)
+    const newHeaders = new Headers(response.headers)
+    
+    // Add CORS headers to the proxied response
+    Object.entries(corsHeaders(env)).forEach(([key, value]) => {
+      newHeaders.set(key, value)
+    })
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: newHeaders,
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Internal server error during proxy'
+    return new Response(
+      JSON.stringify({ error: message }),
+      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
+    )
+  }
+})
+
+/**
  * 404 handler
  */
 router.all('*', () => {

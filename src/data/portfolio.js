@@ -10,8 +10,8 @@ export const personalInfo = {
   ],
   email: 'ayusharyan1309@gmail.com',
   phone: '+91 8340646275',
-  location: 'Gurugram, Haryana, India',
-  locationShort: 'Gurugram, India',
+  location: 'Hyderabad, Telangana, India',
+  locationShort: 'Hyderabad, India',
   birthday: '13 September 2002',
   resumeLink:
     'https://drive.google.com/file/d/1-WyRbkTcbU4HA-hnXWdH5loh15qhnruJ/view?usp=drive_link',
@@ -26,7 +26,7 @@ export const personalInfo = {
     { name: 'Email', url: 'mailto:ayusharyan1309@gmail.com', icon: 'mail' },
     {
       name: 'LeetCode',
-      url: 'https://leetcode.com/elite_force/',
+      url: 'https://leetcode.com/u/ayusharyan1309/',
       icon: 'leetcode',
     },
     {
@@ -36,7 +36,7 @@ export const personalInfo = {
     },
   ],
   heroDescription:
-    "Backend engineer who <strong>ships fast</strong> and <strong>builds scalable</strong> systems serving <strong>400K+ users</strong> — with <strong>Java, Spring Boot, Kafka, Redis, AI/ML, and Distributed Systems</strong>. Based in <strong>Gurugram, India</strong>, open to remote and in-office opportunities.",
+    "Backend engineer who <strong>ships fast</strong> and <strong>builds scalable</strong> systems serving <strong>400K+ users</strong> — with <strong>Java, Spring Boot, Kafka, Redis, AI/ML, and Distributed Systems</strong>. Based in <strong>Hyderabad, India</strong> — open to <strong>Remote, Hybrid, and On-Site</strong> opportunities anywhere.",
   aboutBio: [
     "I'm a <strong>high-impact backend engineer</strong> who ships fast and builds scalable systems used by <strong>400K+ users</strong>. With a <strong>B.Tech in Data Science & AI</strong> from BML Munjal University and hands-on startup experience, I bring a <strong>product builder mindset</strong> — I don't just write code, I own outcomes end-to-end.",
     'From architecting <strong>event-driven microservices</strong> (Java/Spring Boot/Kafka) to launching AI apps on the App Store, I build <strong>production systems that move fast and scale hard</strong>. I specialize in <strong>Java, Spring Boot, Apache Kafka, Redis, Microservices Architecture, RAG, LLMs, and Distributed Systems</strong>.',
@@ -86,7 +86,7 @@ export const personalInfo = {
   ],
   education: {
     school: 'BML Munjal University',
-    logo: '/assets/img/education/BMU-Logo-01.png',
+    logo: 'https://www.bmu.edu.in/apply/img/logo3.png',
     degree: 'B.Tech in Data Science and Artificial Intelligence',
     period: 'October 2021 - June 2025',
     status: 'Graduated',
@@ -158,14 +158,22 @@ export const personalInfo = {
   ],
   projects: [
     {
-      title: 'E-Commerce App',
-      image: '/assets/img/project/e-commerce.avif',
+      title: 'Microservices E-Commerce',
+      image: 'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=2000',
       category: 'app',
       description:
-        'Full-stack marketplace app built with Flutter, Node.js, and MongoDB with REST APIs, user authentication, and product management.',
-      techStack: 'Flutter, Node.js, MongoDB, REST APIs',
-      github: 'https://github.com/ayusharyan13/E-CommerceApp',
-      details: '/projects/e-commerce.html',
+        'Backend microservices architecture for an e-commerce platform built with Spring Boot 3.3. Features three independent services — product (MongoDB), order (MySQL), and inventory (MySQL) — with REST APIs, DTO patterns, JPA/Hibernate, and Testcontainers integration testing.',
+      techStack: 'Java, Spring Boot, Microservices, MongoDB, MySQL, JPA, Hibernate',
+      github: 'https://github.com/ayusharyan13/microservices-based-E-Commerce-app',
+    },
+    {
+      title: 'Chat App Backend',
+      image: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=800&q=80',
+      category: 'app',
+      description:
+        'Full-featured real-time chat backend built with Spring Boot 3.5 and Java 17 featuring Firebase authentication, WebSocket (STOMP over SockJS) messaging, Apache Kafka event-driven architecture, MySQL with Liquibase migrations, and AWS S3 integration. Exposes rich REST + WebSocket APIs for messaging, typing indicators, conversation management, blocking/unblocking, and paginated message history.',
+      techStack: 'Java, Spring Boot, WebSocket, Kafka, Firebase Auth, MySQL, JPA, Liquibase, AWS S3',
+      github: 'https://github.com/ayusharyan13/chat-app-backend',
     },
     {
       title: 'Covid-19 Tracker',
@@ -186,6 +194,34 @@ export const personalInfo = {
       techStack: 'Python, Machine Learning, Scikit-learn',
       github: '#',
       details: '/projects/rainfall.html',
+    },
+    {
+      title: 'Wellness App Backend',
+      image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200',
+      category: 'app',
+      description:
+        'Full-featured wellness platform backend built with Spring Boot 3.3 and Java 17. Features appointment booking with real-time slot management (Redis), blog system with image uploads (Cloudinary), JWT authentication, Kafka-powered notifications, MySQL persistence, and Docker containerization. Includes Swagger/OpenAPI docs and a comprehensive REST API.',
+      techStack: 'Java, Spring Boot, MySQL, Redis, Kafka, JWT, Cloudinary, Docker',
+      github: 'https://github.com/ayusharyan13/wellness-app-backend',
+    },
+    {
+      title: 'Sentiment Analysis',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000',
+      category: 'app',
+      description:
+        'Sentiment-based product recommendation system built with Python and Flask. Uses TF-IDF vectorization and XGBoost for review sentiment classification, SMOTE for class imbalance handling, and collaborative filtering for personalized product recommendations. Deployed with a Flask web interface for interactive testing.',
+      techStack: 'Python, Flask, XGBoost, Scikit-learn, NLTK, Pandas, NLP',
+      github: 'https://github.com/ayusharyan13/Sentiment-Analysis',
+    },
+    {
+      title: 'E-Commerce App',
+      image: '/assets/img/project/e-commerce.avif',
+      category: 'app',
+      description:
+        'Full-stack marketplace app built with Flutter, Node.js, and MongoDB with REST APIs, user authentication, and product management.',
+      techStack: 'Flutter, Node.js, MongoDB, REST APIs',
+      github: 'https://github.com/ayusharyan13/E-CommerceApp',
+      details: '/projects/e-commerce.html',
     },
   ],
   skills: {
@@ -238,13 +274,6 @@ export const personalInfo = {
     { name: 'Drama', icon: 'drama', color: '#47aeff' },
     { name: 'Cricket', icon: 'cricket', color: '#ffc107' },
   ],
-  certifications: [
-    {
-      title: 'Data Structures & Algorithms',
-      image: '/assets/img/education/coding_ninjas.png',
-      url: 'https://certificate.codingninjas.com/view/dccbf8a8b00cc85c',
-    },
-  ],
 }
 
 // Enhanced JSON-LD schemas for richer search results
@@ -266,7 +295,7 @@ export const seoJsonLd = {
       telephone: '+918340646275',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Gurugram',
+        addressLocality: 'Hyderabad',
         addressRegion: 'Haryana',
         addressCountry: 'India',
       },
@@ -291,7 +320,7 @@ export const seoJsonLd = {
           '@type': 'Place',
           address: {
             '@type': 'PostalAddress',
-            addressLocality: 'Gurugram',
+            addressLocality: 'Hyderabad',
             addressRegion: 'Haryana',
             addressCountry: 'India',
           },
@@ -338,7 +367,7 @@ export const seoJsonLd = {
       sameAs: [
         'https://www.linkedin.com/in/ayusharyan1309/',
         'https://github.com/ayusharyan13',
-        'https://leetcode.com/elite_force/',
+        'https://leetcode.com/u/ayusharyan1309/',
         'https://auth.geeksforgeeks.org/user/ayusharyan1309/practice',
       ],
       mainEntityOfPage: {
@@ -352,7 +381,7 @@ export const seoJsonLd = {
       url: 'https://ayusharyan13.github.io/portfolio/',
       name: 'Ayush Aryan — Software Engineer Portfolio',
       description:
-        'High-impact Software Engineer specializing in Java, Spring Boot, Microservices, Apache Kafka, Redis, and AI/ML. Based in Gurugram, India.',
+        'High-impact Software Engineer specializing in Java, Spring Boot, Microservices, Apache Kafka, Redis, and AI/ML. Based in Hyderabad, India — open to remote, hybrid, and on-site roles worldwide.',
       publisher: {
         '@type': 'Person',
         '@id': 'https://ayusharyan13.github.io/portfolio/#person',
@@ -413,10 +442,10 @@ export const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Where is Ayush Aryan based and is he open to remote work?',
+      name: 'Where is Ayush Aryan based and is he open to remote, hybrid, or on-site work?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Based in Gurugram, Haryana, India. Open to remote and in-office opportunities.',
+        text: 'Based in Hyderabad, Telangana, India. Open to remote, hybrid, and on-site opportunities anywhere.',
       },
     },
   ],

@@ -12,7 +12,7 @@ export default function Experience() {
           <span className="text-[#12d640] font-medium">build scalable</span> systems, and{' '}
           <span className="text-[#12d640] font-medium">own outcomes</span>.{' '}
           <span className="text-xs text-gray-500 tracking-wider">
-            #ShipFast #BuildScalable #CrackedEngineer #Java #SpringBoot #Microservices #Kafka #Redis #AI #RAG #LLM #BackendEngineering #DistributedSystems #Gurugram
+            #ShipFast #BuildScalable #CrackedEngineer #Java #SpringBoot #Microservices #Kafka #Redis #AI #RAG #LLM #BackendEngineering #DistributedSystems #Hyderabad
           </span>
         </p>
 

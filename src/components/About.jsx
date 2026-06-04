@@ -14,8 +14,8 @@ export default function About() {
               <div className="absolute -inset-1 bg-gradient-to-r from-[#12d640] to-[#0ea5e9] rounded-2xl opacity-20 group-hover:opacity-40 blur transition-all duration-500" />
               <div className="relative rounded-2xl overflow-hidden">
                 <img
-                  src="/assets/img/project/ProfilePicFinal.jpg"
-                  alt="Ayush Aryan — Software Engineer, Java Spring Boot Backend Developer based in Gurugram, India"
+                  src="https://avatars.githubusercontent.com/u/92577214?s=400&u=4e03d8c10ce0447a5b04e4e2b4161788f9ba2bbd&v=4"
+                  alt="Ayush Aryan — Software Engineer, Java Spring Boot Backend Developer based in Hyderabad, India"
                   className="w-full h-auto object-cover"
                   loading="lazy"
                   itemProp="image"

@@ -29,6 +29,7 @@ export default function Education() {
                 alt={`${education.school} — B.Tech in Data Science and Artificial Intelligence`}
                 className="max-w-[200px] h-auto"
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
             </div>
 
@@ -61,43 +62,6 @@ export default function Education() {
             </div>
           </div>
         </div>
-
-        {/* Certifications */}
-        {personalInfo.certifications.length > 0 && (
-          <div className="mt-12">
-            <h3 className="text-xl font-semibold text-white mb-6">Certifications</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {personalInfo.certifications.map((cert) => (
-                <a
-                  key={cert.title}
-                  href={cert.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-card rounded-xl overflow-hidden group"
-                  itemScope
-                  itemType="https://schema.org/CreativeWork"
-                >
-                  <meta itemProp="name" content={cert.title} />
-                  <meta itemProp="provider" content="Coding Ninjas" />
-                  <div className="aspect-video bg-white/5 flex items-center justify-center p-6">
-                    <img
-                      src={cert.image}
-                      alt={`${cert.title} — Certification`}
-                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                      itemProp="image"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h4 className="text-sm font-semibold text-white group-hover:text-[#12d640] transition-colors" itemProp="about">
-                      {cert.title}
-                    </h4>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   )

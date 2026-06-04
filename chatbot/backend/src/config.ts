@@ -36,6 +36,7 @@ export interface Env {
 
   // CORS
   ALLOWED_ORIGINS?: string
+  PYTHON_BACKEND_URL?: string
 }
 
 export interface ChatMessage {
