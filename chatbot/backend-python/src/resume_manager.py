@@ -6,11 +6,18 @@ Each profile (e.g. "Java Software Dev", "AI/ML Engineer") can have its own
 uploaded resume PDF. The chatbot uses the currently active profile's
 chunks for RAG retrieval.
 
+When a PDF is uploaded:
+1. It's uploaded to S3-compatible storage (Cloudflare R2) for permanent storage
+2. The text is extracted, chunked, and embedded for RAG
+3. Chunks + embeddings are cached locally for fast startup
+
 Profiles are stored as JSON files in `resumes_cache/` with pre-computed
 embeddings for instant chatbot startup.
 """
 
 import json
+import logging
+import os
 import re
 from dataclasses import dataclass
 from datetime import datetime
@@ -20,6 +27,8 @@ from typing import Optional
 from src.rag.knowledge import KnowledgeChunk
 from src.rag.embedder import embed_batch
 
+logger = logging.getLogger("portfolio-chatbot")
+
 # ─── PDF parsing ────────────────────────────────────────────────────────
 
 try:
@@ -27,6 +36,83 @@ try:
     HAS_PYMUPDF = True
 except ImportError:
     HAS_PYMUPDF = False
+
+# ─── S3 (Cloudflare R2) Storage ─────────────────────────────────────────
+
+try:
+    import boto3
+    from botocore.config import Config as BotoConfig
+    HAS_S3 = True
+except ImportError:
+    HAS_S3 = False
+
+S3_ENDPOINT = os.getenv("UPLOAD_STORAGE_S3_ENDPOINT", "")
+S3_BUCKET = os.getenv("UPLOAD_STORAGE_S3_BUCKET", "ride-share-profile")
+S3_REGION = os.getenv("UPLOAD_STORAGE_S3_REGION", "ap-south-1")
+S3_ACCESS_KEY = os.getenv("UPLOAD_STORAGE_S3_ACCESS_KEY", "")
+S3_SECRET_KEY = os.getenv("UPLOAD_STORAGE_S3_SECRET_KEY", "")
+S3_PUBLIC_URL_BASE = os.getenv(
+    "UPLOAD_STORAGE_PUBLIC_URL",
+    f"https://{S3_BUCKET}.{S3_REGION}.cloudflarestorage.com",
+)
+
+_resume_s3_client = None
+
+
+def _get_s3_client():
+    """Get or create the S3 client singleton."""
+    global _resume_s3_client
+    if _resume_s3_client is None and HAS_S3 and S3_ENDPOINT and S3_ACCESS_KEY:
+        _resume_s3_client = boto3.client(
+            "s3",
+            endpoint_url=S3_ENDPOINT,
+            region_name=S3_REGION,
+            aws_access_key_id=S3_ACCESS_KEY,
+            aws_secret_access_key=S3_SECRET_KEY,
+            config=BotoConfig(signature_version="s3v4"),
+        )
+    return _resume_s3_client
+
+
+def _upload_to_s3(profile_id: str, pdf_bytes: bytes, file_name: str) -> Optional[str]:
+    """Upload resume PDF to S3-compatible storage. Returns the public URL or None."""
+    s3 = _get_s3_client()
+    if not s3:
+        logger.warning("S3 not configured — skipping cloud storage upload")
+        return None
+
+    key = f"resumes/{profile_id}/{file_name}"
+    try:
+        s3.put_object(
+            Bucket=S3_BUCKET,
+            Key=key,
+            Body=pdf_bytes,
+            ContentType="application/pdf",
+        )
+        url = f"{S3_PUBLIC_URL_BASE}/{key}"
+        logger.info("Resume uploaded to S3: %s", url)
+        return url
+    except Exception as e:
+        logger.warning("Failed to upload resume to S3: %s", str(e))
+        return None
+
+
+def _delete_from_s3(profile_id: str):
+    """Delete resume PDF from S3-compatible storage."""
+    s3 = _get_s3_client()
+    if not s3:
+        return
+
+    try:
+        # List and delete all objects with this profile prefix
+        response = s3.list_objects_v2(Bucket=S3_BUCKET, Prefix=f"resumes/{profile_id}/")
+        if "Contents" in response:
+            objects = [{"Key": obj["Key"]} for obj in response["Contents"]]
+            s3.delete_objects(Bucket=S3_BUCKET, Delete={"Objects": objects})
+            logger.info("Deleted %d objects from S3 for profile %s", len(objects), profile_id)
+    except Exception as e:
+        logger.warning("Failed to delete resume from S3: %s", str(e))
+
 
 # ─── Storage ────────────────────────────────────────────────────────────
 
@@ -55,6 +141,7 @@ class ResumeProfileInfo:
     chunk_count: int = 0
     file_name: Optional[str] = None
     file_size: Optional[int] = None
+    cloud_url: Optional[str] = None
     active: bool = False
 
 
@@ -95,6 +182,7 @@ def list_profiles() -> list[ResumeProfileInfo]:
             chunk_count=data.get("chunk_count", 0),
             file_name=data.get("file_name"),
             file_size=data.get("file_size"),
+            cloud_url=data.get("cloud_url"),
             active=(p["id"] == active_id),
         ))
     return profiles
@@ -233,10 +321,20 @@ def upload_resume(profile_id: str, pdf_bytes: bytes, file_name: str = "resume.pd
         for c, emb in zip(chunks, embeddings)
     ]
 
-    # Save to disk
+    # Save chunks to disk
     profile_path = CACHE_DIR / f"{profile_id}.json"
     with open(profile_path, "w") as f:
         json.dump(chunk_data, f, indent=2)
+
+    # Save original PDF to disk for download
+    pdf_dir = CACHE_DIR / profile_id
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+    pdf_path = pdf_dir / "resume.pdf"
+    with open(pdf_path, "wb") as f:
+        f.write(pdf_bytes)
+
+    # Upload to S3 (Cloudflare R2) for permanent storage
+    cloud_url = _upload_to_s3(profile_id, pdf_bytes, file_name)
 
     # Update index
     index = _read_index()
@@ -246,6 +344,8 @@ def upload_resume(profile_id: str, pdf_bytes: bytes, file_name: str = "resume.pd
         "file_name": file_name,
         "file_size": len(pdf_bytes),
     }
+    if cloud_url:
+        index[profile_id]["cloud_url"] = cloud_url
     index["_active"] = profile_id  # Auto-activate on upload
     _write_index(index)
 
@@ -253,6 +353,7 @@ def upload_resume(profile_id: str, pdf_bytes: bytes, file_name: str = "resume.pd
         "profile_id": profile_id,
         "chunks": len(chunks),
         "characters": len(text),
+        "cloud_url": cloud_url,
     }
 
 
@@ -283,11 +384,34 @@ def get_active_chunks() -> list[KnowledgeChunk]:
     return chunks
 
 
+def get_pdf_path(profile_id: str) -> Optional[Path]:
+    """Get the local path to the saved PDF for a profile, if it exists."""
+    pdf_path = CACHE_DIR / profile_id / "resume.pdf"
+    if pdf_path.exists():
+        return pdf_path
+    return None
+
+
 def delete_profile(profile_id: str) -> bool:
     """Delete a resume profile and its data."""
+    # Delete from S3
+    _delete_from_s3(profile_id)
+
+    # Delete local cache
     profile_path = CACHE_DIR / f"{profile_id}.json"
     if profile_path.exists():
         profile_path.unlink()
+
+    # Delete saved PDF
+    pdf_path = CACHE_DIR / profile_id / "resume.pdf"
+    if pdf_path.exists():
+        pdf_path.unlink()
+    pdf_dir = CACHE_DIR / profile_id
+    if pdf_dir.exists():
+        try:
+            pdf_dir.rmdir()  # Remove empty directory
+        except OSError:
+            pass
 
     index = _read_index()
     index.pop(profile_id, None)

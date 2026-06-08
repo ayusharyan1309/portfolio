@@ -12,7 +12,7 @@ LLM_PROVIDER = "groq"
 GROQ_MODEL = "llama-3.1-8b-instant"
 MAX_TOKENS = "512"
 TEMPERATURE = "0.7"
-PYTHON_BACKEND_URL = "hhttps://portfolio-chatbot.ayush-portfolio-chatbot.workers.dev" # TODO: Replace with your actual Python backend URL
+# PYTHON_BACKEND_URL = "https://your-app.onrender.com"  # Set this to your Render URL after deploying
 ALLOWED_ORIGINS = "https://ayush-aryan1309-portfolio.vercel.app"
 
 # API keys — set these via `npx wrangler secret put`

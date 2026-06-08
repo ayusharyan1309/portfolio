@@ -1,0 +1,35 @@
+# Render Blueprint — Deploy the Python FastAPI backend
+# 1. Push this repo to GitHub
+# 2. Go to https://render.com → New Blueprint
+# 3. Connect your repo → Render auto-deploys
+#
+# No credit card required for free tier.
+
+services:
+  - type: web
+    name: portfolio-chatbot-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.main:app -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 120
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "true"
+      - key: PORT
+        value: "10000"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: ALLOWED_ORIGINS
+        value: "https://ayush-aryan1309-portfolio.vercel.app,https://portfolio-chatbot.ayush-portfolio-chatbot.workers.dev"
+      - key: LLM_PROVIDER
+        value: "groq"
+      - key: GROQ_MODEL
+        value: "llama-3.1-8b-instant"
+      # Set these secrets in Render Dashboard:
+      # - GROQ_API_KEY
+      # - UPLOAD_STORAGE_S3_ENDPOINT
+      # - UPLOAD_STORAGE_S3_BUCKET
+      # - UPLOAD_STORAGE_S3_REGION
+      # - UPLOAD_STORAGE_S3_ACCESS_KEY
+      # - UPLOAD_STORAGE_S3_SECRET_KEY

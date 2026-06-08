@@ -18,7 +18,8 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 // Default API URL — uses VITE_API_URL env var in production, falls back to localhost for dev
 const DEFAULT_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001'
 
-const RESUME_PROFILES = [
+// Fallback profiles — shown when the backend is unreachable
+const FALLBACK_PROFILES = [
   { id: 'mobile-dev',       label: 'Mobile Developer',     icon: '📱' },
   { id: 'java-software-dev', label: 'Java Software Dev',    icon: '☕' },
   { id: 'backend-software',  label: 'Backend Software',     icon: '⚙️' },
@@ -94,12 +95,25 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
 
   // ─── Fetch profiles from backend ───
   const fetchProfiles = async () => {
+    setAdminMsg(null)
     try {
       const res = await fetch(`${apiUrl}/api/admin/profiles`)
+      if (!res.ok) throw new Error(`Server error: ${res.status}`)
       const data = await res.json()
       setProfiles(data.profiles)
     } catch (e) {
-      setAdminMsg({ type: 'error', text: 'Could not connect to server' })
+      // Backend unavailable — show fallback profiles with hint
+      setProfiles(FALLBACK_PROFILES.map((p) => ({
+        id: p.id,
+        label: p.label,
+        icon: p.icon,
+        uploaded_at: null,
+        chunk_count: 0,
+        file_name: null,
+        file_size: null,
+        cloud_url: null,
+        active: false,
+      })))
     }
   }
 
@@ -121,7 +135,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
       const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(data.detail || 'Upload failed')
+        throw new Error(data.error || data.detail || 'Upload failed')
       }
 
       setAdminMsg({
@@ -147,7 +161,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
       })
       if (!res.ok) {
         const data = await res.json()
-        throw new Error(data.detail || 'Activation failed')
+        throw new Error(data.error || data.detail || 'Activation failed')
       }
       setAdminMsg({ type: 'success', text: `✅ Activated` })
       fetchProfiles()
@@ -165,7 +179,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
       })
       if (!res.ok) {
         const data = await res.json()
-        throw new Error(data.detail || 'Delete failed')
+        throw new Error(data.error || data.detail || 'Delete failed')
       }
       setAdminMsg({ type: 'success', text: `🗑️ Deleted` })
       fetchProfiles()
@@ -524,77 +538,77 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
 
       {/* Profile cards */}
       <div className="space-y-2">
-        {profiles?.map((p) => (
-          <div
-            key={p.id}
-            className={`rounded-xl border p-3 transition-all ${
-              p.active
-                ? 'border-[#12d640]/40 bg-[#12d640]/5'
-                : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.04]'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className="text-lg">{p.icon}</span>
-                <div className="min-w-0">
-                  <p className="text-sm text-white font-medium truncate">
-                    {p.label}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-0.5">
-                    {p.uploaded_at
-                      ? `📄 ${new Date(p.uploaded_at).toLocaleDateString()} • ${p.chunk_count} chunks`
-                      : 'No resume uploaded'
-                    }
-                  </p>
+        {profiles?.map((p) => {
+          const isUploading = uploading === p.id
+          return (
+            <div
+              key={p.id}
+              className={`rounded-xl border transition-all ${
+                p.active
+                  ? 'border-[#12d640]/40 bg-[#12d640]/5'
+                  : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.04]'
+              } ${isUploading ? 'opacity-70 pointer-events-none' : ''}`}
+            >
+              {/* Main row: icon + label + status */}
+              <div className="flex items-center justify-between p-3 pb-0">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="text-lg">{p.icon}</span>
+                  <div className="min-w-0">
+                    <p className="text-sm text-white font-medium truncate">
+                      {p.label}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {p.uploaded_at
+                        ? `📄 ${new Date(p.uploaded_at).toLocaleDateString()} • ${p.chunk_count} chunks`
+                        : 'No resume uploaded'
+                      }
+                    </p>
+                    {p.cloud_url && (
+                      <p className="text-[10px] text-blue-400/60 mt-0.5 truncate max-w-[200px]">
+                        ☁️ Stored in cloud
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Active badge or actions */}
-              <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                {p.active ? (
-                  <span className="text-[10px] font-semibold text-[#12d640] bg-[#12d640]/10 px-2 py-0.5 rounded-full border border-[#12d640]/20 whitespace-nowrap">
-                    ACTIVE
-                  </span>
-                ) : (
-                  <>
-                    {p.uploaded_at && (
-                      <button
-                        onClick={() => onActivate(p.id)}
-                        className="text-[11px] text-[#12d640] hover:text-white px-2 py-1 rounded-lg hover:bg-[#12d640]/20 transition-all whitespace-nowrap"
-                      >
-                        Activate
-                      </button>
-                    )}
-                  </>
-                )}
-
-                {/* Upload button */}
+              {/* Action buttons row */}
+              <div className="flex items-center gap-2 px-3 pb-3 pt-2">
+                {/* Upload PDF button — prominent */}
                 <button
                   onClick={() => onUpload(p.id)}
-                  disabled={uploading === p.id}
-                  className={`p-1.5 rounded-lg transition-all ${
-                    uploading === p.id
-                      ? 'text-gray-600'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
-                  }`}
-                  title="Upload PDF resume"
+                  disabled={isUploading}
+                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium bg-[#12d640]/10 text-[#12d640] border border-[#12d640]/20 hover:bg-[#12d640]/20 hover:border-[#12d640]/30 transition-all disabled:opacity-40"
                 >
-                  {uploading === p.id ? (
-                    <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" strokeDasharray="32" strokeLinecap="round" />
-                    </svg>
+                  {isUploading ? (
+                    <><svg className="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" strokeDasharray="32" strokeLinecap="round" /></svg> Uploading...</>
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
-                    </svg>
+                    <><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg> Upload PDF</>
                   )}
                 </button>
+
+                {/* Activate button */}
+                {p.uploaded_at && !p.active && (
+                  <button
+                    onClick={() => onActivate(p.id)}
+                    className="px-3 py-2 rounded-lg text-[11px] font-medium border border-white/10 text-gray-300 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap"
+                  >
+                    Activate
+                  </button>
+                )}
+
+                {/* Active badge */}
+                {p.active && (
+                  <span className="px-3 py-2 rounded-lg text-[11px] font-bold text-[#12d640] bg-[#12d640]/10 border border-[#12d640]/20 whitespace-nowrap">
+                    ACTIVE
+                  </span>
+                )}
 
                 {/* Delete button */}
                 {p.uploaded_at && (
                   <button
                     onClick={() => onDelete(p.id)}
-                    className="p-1.5 rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                    className="p-2 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
                     title="Delete resume"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -604,8 +618,8 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
                 )}
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {/* Footer hint */}

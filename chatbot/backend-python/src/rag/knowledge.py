@@ -51,8 +51,7 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="about-location",
         category="About",
         content=(
-            "Ayush Aryan is based in Gurugram, Haryana, India. He is open to remote and "
-            "in-office opportunities. Born on 13 September 2002."
+        "Ayush Aryan is based in Hyderabad, Telangana, India. Born on 13 September 2002."
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -199,12 +198,52 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
 
     # === Projects ===
     chunks.append(KnowledgeChunk(
-        id="project-ecommerce",
+        id="project-microservices-ecommerce",
         category="Projects",
         content=(
-            "Ayush built an E-Commerce App using Flutter, Node.js, Express, MongoDB with Mongoose. "
-            "Features include REST APIs, state management with Provider, and cross-platform support "
-            "for Android and iOS."
+            "Ayush built a Microservices E-Commerce backend using Spring Boot 3.3. Features three "
+            "independent services — product (MongoDB), order (MySQL), and inventory (MySQL) — with "
+            "REST APIs, DTO patterns, JPA/Hibernate, and Testcontainers integration testing. "
+            "GitHub: https://github.com/ayusharyan13/microservices-based-E-Commerce-app"
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="project-chat-app",
+        category="Projects",
+        content=(
+            "Ayush built a full-featured real-time Chat App Backend with Spring Boot 3.5 and Java 17 "
+            "featuring Firebase authentication, WebSocket (STOMP over SockJS) messaging, Apache Kafka "
+            "event-driven architecture, MySQL with Liquibase migrations, and AWS S3 integration. "
+            "GitHub: https://github.com/ayusharyan13/chat-app-backend"
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="project-rainfall",
+        category="Projects",
+        content=(
+            "Ayush built a Rainfall Prediction App using Python and machine learning. The model uses "
+            "the Australia Weather dataset with data preprocessing and classification algorithms to "
+            "predict rainfall occurrence."
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="project-wellness",
+        category="Projects",
+        content=(
+            "Ayush built a Wellness App Backend with Spring Boot 3.3 and Java 17. Features appointment "
+            "booking with real-time slot management (Redis), blog system with image uploads (Cloudinary), "
+            "JWT authentication, Kafka-powered notifications, MySQL persistence, and Docker containerization. "
+            "GitHub: https://github.com/ayusharyan13/wellness-app-backend"
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="project-sentiment",
+        category="Projects",
+        content=(
+            "Ayush built a Sentiment Analysis system — a sentiment-based product recommendation system "
+            "with Python and Flask. Uses TF-IDF vectorization and XGBoost for review sentiment "
+            "classification, SMOTE for class imbalance handling, and collaborative filtering for "
+            "personalized product recommendations. GitHub: https://github.com/ayusharyan13/Sentiment-Analysis"
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -217,12 +256,12 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         ),
     ))
     chunks.append(KnowledgeChunk(
-        id="project-rainfall",
+        id="project-ecommerce-app",
         category="Projects",
         content=(
-            "Ayush built a Rainfall Prediction App using Python and machine learning. The model uses "
-            "the Australia Weather dataset with data preprocessing and classification algorithms to "
-            "predict rainfall occurrence."
+            "Ayush built an E-Commerce App — a full-stack marketplace app built with Flutter, "
+            "Node.js, and MongoDB with REST APIs, user authentication, and product management. "
+            "GitHub: https://github.com/ayusharyan13/E-CommerceApp"
         ),
     ))
 
@@ -241,10 +280,10 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="contact-info",
         category="Contact",
         content=(
-            "Email: ayusharyan1309@gmail.com. Phone: +91 8340646275. Location: Gurugram, Haryana, "
-            "India. LinkedIn: https://www.linkedin.com/in/ayusharyan1309/. GitHub: https://github.com/ayusharyan13. "
-            "LeetCode: https://leetcode.com/elite_force/. "
-            "GeeksforGeeks: https://auth.geeksforgeeks.org/user/ayusharyan1309/practice."
+        "Email: ayusharyan1309@gmail.com. Phone: +91 8340646275. Location: Hyderabad, Telangana, "
+        "India. LinkedIn: https://www.linkedin.com/in/ayusharyan1309/. GitHub: https://github.com/ayusharyan13. "
+        "LeetCode: https://leetcode.com/u/ayusharyan1309/. "
+        "GeeksforGeeks: https://auth.geeksforgeeks.org/user/ayusharyan1309/practice."
         ),
     ))
 

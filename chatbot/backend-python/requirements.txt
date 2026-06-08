@@ -23,3 +23,9 @@ PyMuPDF>=1.24.0
 
 # File upload parsing (FastAPI Form data)
 python-multipart>=0.0.12
+
+# S3-compatible storage (Cloudflare R2 for resume PDFs)
+boto3>=1.34.0
+
+# HTTP client (Gemini provider)
+httpx>=0.27.0

@@ -242,21 +242,41 @@ router.post('/api/chat', async (request: Request, env: Env) => {
 })
 
 /**
- * Proxy /api/admin requests to the Python backend
+ * Proxy /api/admin requests to the Python backend (Render)
+ * Set PYTHON_BACKEND_URL env var to your Render URL once deployed.
+ * Keep it empty to fall back to local profiles (no upload capability).
  */
-router.all('/api/admin/:path+', async (request: Request, env: Env) => {
+router.all('/api/admin/:path*', async (request: Request, env: Env) => {
   const pythonBackendUrl = env.PYTHON_BACKEND_URL
+  
+  // If no backend URL configured, return fallback profiles for GET
   if (!pythonBackendUrl) {
+    const pathname = new URL(request.url).pathname
+    if (request.method === 'GET' && pathname === '/api/admin/profiles') {
+      const profiles = [
+        { id: 'mobile-dev',       label: 'Mobile Developer',     icon: '📱',  uploaded_at: null, chunk_count: 0, file_name: null, file_size: null, cloud_url: null, active: false },
+        { id: 'java-software-dev', label: 'Java Software Dev',    icon: '☕',  uploaded_at: null, chunk_count: 0, file_name: null, file_size: null, cloud_url: null, active: false },
+        { id: 'backend-software',  label: 'Backend Software',     icon: '⚙️', uploaded_at: null, chunk_count: 0, file_name: null, file_size: null, cloud_url: null, active: false },
+        { id: 'aiml',              label: 'AI/ML Engineer',       icon: '🤖', uploaded_at: null, chunk_count: 0, file_name: null, file_size: null, cloud_url: null, active: false },
+        { id: 'nodejs-dev',        label: 'Node.js Developer',    icon: '🟢', uploaded_at: null, chunk_count: 0, file_name: null, file_size: null, cloud_url: null, active: false },
+        { id: 'fullstack-dev',     label: 'Fullstack Developer',  icon: '🌐', uploaded_at: null, chunk_count: 0, file_name: null, file_size: null, cloud_url: null, active: false },
+      ]
+      return new Response(
+        JSON.stringify({ profiles }),
+        { headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
+      )
+    }
     return new Response(
-      JSON.stringify({ error: 'Python backend URL not configured.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
+      JSON.stringify({ error: 'Resume upload works on local only. Run: cd chatbot/backend-python && python -m src.main' }),
+      { status: 501, headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
     )
   }
 
-  const url = new URL(request.url)
-  const targetUrl = new URL(url.pathname + url.search, pythonBackendUrl)
-
+  // Proxy to Python backend
   try {
+    const url = new URL(request.url)
+    const targetUrl = new URL(url.pathname + url.search, pythonBackendUrl)
+    
     const proxyRequest = new Request(targetUrl.toString(), {
       method: request.method,
       headers: request.headers,
@@ -266,8 +286,6 @@ router.all('/api/admin/:path+', async (request: Request, env: Env) => {
 
     const response = await fetch(proxyRequest)
     const newHeaders = new Headers(response.headers)
-    
-    // Add CORS headers to the proxied response
     Object.entries(corsHeaders(env)).forEach(([key, value]) => {
       newHeaders.set(key, value)
     })
@@ -278,10 +296,10 @@ router.all('/api/admin/:path+', async (request: Request, env: Env) => {
       headers: newHeaders,
     })
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Internal server error during proxy'
+    const message = err instanceof Error ? err.message : 'Proxy error'
     return new Response(
-      JSON.stringify({ error: message }),
-      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
+      JSON.stringify({ error: `Backend unreachable: ${message}` }),
+      { status: 502, headers: { 'Content-Type': 'application/json', ...corsHeaders(env) } }
     )
   }
 })
@@ -291,7 +309,7 @@ router.all('/api/admin/:path+', async (request: Request, env: Env) => {
  */
 router.all('*', () => {
   return new Response(
-    JSON.stringify({ error: 'Not found. Available endpoints: GET /api/health, POST /api/chat, GET /api/providers, GET /api/config' }),
+    JSON.stringify({ error: 'Not found. Available endpoints: GET /api/health, POST /api/chat, GET /api/providers, GET /api/config, GET /api/admin/profiles' }),
     {
       status: 404,
       headers: { 'Content-Type': 'application/json' },

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { seoJsonLd, faqSchema, personalInfo } from './data/portfolio'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -12,8 +13,10 @@ import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
+import ResumeSelector from './components/ResumeSelector'
 
 export default function App() {
+  const [showResumeModal, setShowResumeModal] = useState(false)
   const allSchemas = [seoJsonLd, faqSchema]
 
   return (
@@ -90,9 +93,9 @@ export default function App() {
         </nav>
       </div>
 
-      <Navbar />
+      <Navbar onOpenResume={() => setShowResumeModal(true)} />
       <main>
-        <Hero />
+        <Hero onOpenResume={() => setShowResumeModal(true)} />
         <About />
         <ImpactStats />
         <WhyHireMe />
@@ -107,6 +110,12 @@ export default function App() {
 
       {/* Floating RAG Chatbot */}
       <Chatbot />
+
+      {/* Resume Selector Modal */}
+      <ResumeSelector
+        isOpen={showResumeModal}
+        onClose={() => setShowResumeModal(false)}
+      />
     </div>
     </>
   )

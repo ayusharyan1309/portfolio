@@ -10,7 +10,7 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ onOpenResume }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
@@ -75,14 +75,12 @@ export default function Navbar() {
                 {item.label}
               </a>
             ))}
-            <a
-              href={personalInfo.resumeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-3 px-4 py-2 text-sm font-semibold text-[#0a0a1a] bg-[#12d640] rounded-lg hover:bg-[#12d640]/90 transition-all"
+            <button
+              onClick={onOpenResume}
+              className="ml-3 px-4 py-2 text-sm font-semibold text-[#0a0a1a] bg-[#12d640] rounded-lg hover:bg-[#12d640]/90 transition-all cursor-pointer"
             >
               Resume
-            </a>
+            </button>
           </div>
 
           {/* Mobile toggle */}
@@ -133,14 +131,12 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <a
-            href={personalInfo.resumeLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block mt-2 px-4 py-2.5 text-sm font-semibold text-center text-[#0a0a1a] bg-[#12d640] rounded-lg"
+          <button
+            onClick={onOpenResume}
+            className="block mt-2 w-full px-4 py-2.5 text-sm font-semibold text-center text-[#0a0a1a] bg-[#12d640] rounded-lg hover:bg-[#12d640]/90 transition-all cursor-pointer"
           >
             Resume
-          </a>
+          </button>
         </div>
       </div>
     </nav>

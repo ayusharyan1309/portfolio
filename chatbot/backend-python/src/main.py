@@ -48,7 +48,25 @@ embedded_chunks: Optional[List[KnowledgeChunk]] = None
 
 
 def _get_all_chunks() -> list[KnowledgeChunk]:
-    """Merge hardcoded knowledge base with active resume chunks."""
+    """Merge hardcoded knowledge base with active resume chunks.
+    Lazily computes embeddings on first call.
+    """
+    global embedded_chunks
+    
+    # Lazy-init embeddings for hardcoded knowledge base
+    if embedded_chunks is None:
+        logger.info("Computing embeddings for %d chunks (lazy)...", len(raw_chunks))
+        try:
+            texts = [c.content for c in raw_chunks]
+            embeddings = embed_batch(texts, cfg.embedding_model, show_progress=True)
+            for chunk, emb in zip(raw_chunks, embeddings):
+                chunk.embedding = emb
+            embedded_chunks = raw_chunks
+            logger.info("Embeddings ready (dim=%d)", len(embeddings[0]))
+        except Exception as e:
+            logger.warning("Failed to compute embeddings: %s", str(e))
+            embedded_chunks = []
+    
     base = embedded_chunks or []
     resume_chunks = resume_manager.get_active_chunks()
     if resume_chunks:
@@ -57,24 +75,11 @@ def _get_all_chunks() -> list[KnowledgeChunk]:
     return base
 
 
-def _init_embeddings():
-    """Pre-compute embeddings for all chunks at startup (blocking, runs once)."""
-    global embedded_chunks
-    if embedded_chunks is not None:
-        return
-    logger.info("Computing embeddings for %d chunks using sentence-transformers...", len(raw_chunks))
-    texts = [c.content for c in raw_chunks]
-    embeddings = embed_batch(texts, cfg.embedding_model, show_progress=True)
-    for chunk, emb in zip(raw_chunks, embeddings):
-        chunk.embedding = emb
-    embedded_chunks = raw_chunks
-    logger.info("Embeddings ready (dim=%d)", len(embeddings[0]))
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Application lifespan — compute embeddings on startup."""
-    _init_embeddings()
+    """Application lifespan — runs on startup and shutdown."""
+    # Don't compute embeddings at startup — they load lazily on first request
+    logger.info("Backend started. Embeddings will load on first request.")
     yield
 
 
@@ -210,6 +215,7 @@ async def admin_list_profiles():
                 "chunk_count": p.chunk_count,
                 "file_name": p.file_name,
                 "file_size": p.file_size,
+                "cloud_url": p.cloud_url,
                 "active": p.active,
             }
             for p in profiles
@@ -240,8 +246,8 @@ async def admin_upload_resume(
             file_name=file.filename,
         )
         logger.info(
-            "Resume uploaded: profile=%s chunks=%d chars=%d",
-            profile_id, result["chunks"], result["characters"],
+            "Resume uploaded: profile=%s chunks=%d chars=%d cloud_url=%s",
+            profile_id, result["chunks"], result["characters"], result.get("cloud_url"),
         )
         return {"status": "ok", **result}
     except ValueError as e:
@@ -260,6 +266,30 @@ async def admin_activate_resume(req: ActivateRequest):
             detail=f"Cannot activate profile '{req.profile_id}'. Make sure it exists and has been uploaded."
         )
     return {"status": "ok", "active_profile": req.profile_id}
+
+
+@app.get("/api/resume/{profile_id}/download")
+async def download_resume(profile_id: str):
+    """Download the uploaded PDF resume for a profile."""
+    pdf_path = resume_manager.get_pdf_path(profile_id)
+    if not pdf_path:
+        # Check if there's a cloud_url in the profile
+        profiles = resume_manager.list_profiles()
+        for p in profiles:
+            if p.id == profile_id and p.cloud_url:
+                from fastapi.responses import RedirectResponse
+                return RedirectResponse(url=p.cloud_url)
+        raise HTTPException(status_code=404, detail="No resume found for this profile")
+
+    from fastapi.responses import FileResponse
+    return FileResponse(
+        path=str(pdf_path),
+        media_type="application/pdf",
+        filename=f"{profile_id}-resume.pdf",
+        headers={
+            "Content-Disposition": f"attachment; filename=\"{profile_id}-resume.pdf\"",
+        },
+    )
 
 
 @app.delete("/api/admin/resume/{profile_id}")

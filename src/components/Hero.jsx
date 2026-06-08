@@ -33,7 +33,7 @@ const SocialIcon = ({ name }) => {
   return icons[name] || null
 }
 
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   const [titleIndex, setTitleIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -60,7 +60,7 @@ export default function Hero() {
     <section
       id="hero"
       tabIndex={-1}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20"
       itemScope
       itemType="https://schema.org/Person"
       itemProp="mainEntity"
@@ -89,14 +89,6 @@ export default function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#0ea5e9]/5 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        {/* Available badge */}
-        <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#12d640]/20 bg-[#12d640]/5 animate-fade-in">
-          <span className="w-2 h-2 bg-[#12d640] rounded-full animate-pulse" />
-          <span className="text-xs sm:text-sm text-[#12d640] font-medium">
-            Open to Remote · Hybrid · On-Site — Anywhere
-          </span>
-        </div>
-
         {/* H1 for SEO */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-4 animate-fade-in tracking-tight">
           {personalInfo.name.split(' ')[0]}{' '}
@@ -157,14 +149,12 @@ export default function Hero() {
           >
             Hire Me — I'm Ready
           </a>
-          <a
-            href={personalInfo.resumeLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3 border border-white/20 text-white font-medium rounded-xl hover:bg-white/5 hover:border-white/30 transition-all duration-300"
+          <button
+            onClick={onOpenResume}
+            className="px-8 py-3 border border-white/20 text-white font-medium rounded-xl hover:bg-white/5 hover:border-white/30 transition-all duration-300 cursor-pointer"
           >
             View Resume (PDF)
-          </a>
+          </button>
           <a
             href="#projects"
             onClick={(e) => {

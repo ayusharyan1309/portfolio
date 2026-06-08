@@ -36,7 +36,7 @@ export const personalInfo = {
     },
   ],
   heroDescription:
-    "Backend engineer who <strong>ships fast</strong> and <strong>builds scalable</strong> systems serving <strong>400K+ users</strong> — with <strong>Java, Spring Boot, Kafka, Redis, AI/ML, and Distributed Systems</strong>. Based in <strong>Hyderabad, India</strong> — open to <strong>Remote, Hybrid, and On-Site</strong> opportunities anywhere.",
+    "Backend engineer who <strong>ships fast</strong> and <strong>builds scalable</strong> systems serving <strong>400K+ users</strong> — with <strong>Java, Spring Boot, Kafka, Redis, AI/ML, and Distributed Systems</strong>. Based in <strong>Hyderabad, India</strong>.",
   aboutBio: [
     "I'm a <strong>high-impact backend engineer</strong> who ships fast and builds scalable systems used by <strong>400K+ users</strong>. With a <strong>B.Tech in Data Science & AI</strong> from BML Munjal University and hands-on startup experience, I bring a <strong>product builder mindset</strong> — I don't just write code, I own outcomes end-to-end.",
     'From architecting <strong>event-driven microservices</strong> (Java/Spring Boot/Kafka) to launching AI apps on the App Store, I build <strong>production systems that move fast and scale hard</strong>. I specialize in <strong>Java, Spring Boot, Apache Kafka, Redis, Microservices Architecture, RAG, LLMs, and Distributed Systems</strong>.',
@@ -176,18 +176,8 @@ export const personalInfo = {
       github: 'https://github.com/ayusharyan13/chat-app-backend',
     },
     {
-      title: 'Covid-19 Tracker',
-      image: '/assets/img/project/COVID_Starter.png',
-      category: 'app',
-      description:
-        'Real-time Covid-19 tracking app built with Flutter and REST APIs, featuring global and country-specific statistics with interactive charts.',
-      techStack: 'Flutter, REST API, Data Visualization',
-      github: '#',
-      details: '/projects/covid-tracker.html',
-    },
-    {
       title: 'Rainfall Prediction App',
-      image: '/assets/img/project/todo.jpg',
+      image: 'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?q=80&w=2000',
       category: 'app',
       description:
         'Machine learning model for rainfall prediction using Python, featuring data preprocessing, model training, and a user-friendly interface.',
@@ -214,8 +204,18 @@ export const personalInfo = {
       github: 'https://github.com/ayusharyan13/Sentiment-Analysis',
     },
     {
+      title: 'Covid-19 Tracker',
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000',
+      category: 'app',
+      description:
+        'Real-time Covid-19 tracking app built with Flutter and REST APIs, featuring global and country-specific statistics with interactive charts.',
+      techStack: 'Flutter, REST API, Data Visualization',
+      github: '#',
+      details: '/projects/covid-tracker.html',
+    },
+    {
       title: 'E-Commerce App',
-      image: '/assets/img/project/e-commerce.avif',
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000',
       category: 'app',
       description:
         'Full-stack marketplace app built with Flutter, Node.js, and MongoDB with REST APIs, user authentication, and product management.',
@@ -247,7 +247,7 @@ export const personalInfo = {
     aiMl: [
       { name: 'PyTorch', logo: 'https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg' },
       { name: 'TensorFlow', logo: 'https://www.vectorlogo.zone/logos/tensorflow/tensorflow-ar21.svg' },
-      { name: 'LangChain', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/10/LangChain_Logo.svg' },
+      { name: 'LangChain', logo: 'https://cdn.simpleicons.org/langchain' },
       { name: 'Hugging Face', logo: 'https://huggingface.co/front/assets/huggingface_logo-noborder.svg' },
     ],
     aiBadges: [
@@ -381,7 +381,7 @@ export const seoJsonLd = {
       url: 'https://ayusharyan13.github.io/portfolio/',
       name: 'Ayush Aryan — Software Engineer Portfolio',
       description:
-        'High-impact Software Engineer specializing in Java, Spring Boot, Microservices, Apache Kafka, Redis, and AI/ML. Based in Hyderabad, India — open to remote, hybrid, and on-site roles worldwide.',
+        'High-impact Software Engineer specializing in Java, Spring Boot, Microservices, Apache Kafka, Redis, and AI/ML. Based in Hyderabad, India.',
       publisher: {
         '@type': 'Person',
         '@id': 'https://ayusharyan13.github.io/portfolio/#person',
@@ -442,10 +442,10 @@ export const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Where is Ayush Aryan based and is he open to remote, hybrid, or on-site work?',
+      name: 'Where is Ayush Aryan based?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Based in Hyderabad, Telangana, India. Open to remote, hybrid, and on-site opportunities anywhere.',
+        text: 'Based in Hyderabad, Telangana, India.',
       },
     },
   ],
