@@ -83,7 +83,7 @@ export function buildKnowledgeBase(): KnowledgeChunk[] {
     category: 'Experience',
     metadata: { company: 'Visionify Inc.', role: 'Software Engineer (SDE-1)', period: 'September 2025 - Present' },
     content:
-      'At Visionify Inc., Ayush owns the event-driven alerting service that delivers real-time workplace-safety notifications across Email, Microsoft Teams, and WhatsApp — processing 10K+ events per day with end-to-end API response times under 150ms and fault-tolerant routing through peak bursts. He also built and deployed a cross-platform Electron application on edge devices surfacing live system health and camera telemetry, accelerating incident detection and resolution.',
+      'Ayush currently works at Visionify Inc. as a Software Engineer (SDE-1), his current job since September 2025. He owns the event-driven alerting service that delivers real-time workplace-safety notifications across Email, Microsoft Teams, and WhatsApp — processing 10K+ events per day with end-to-end API response times under 150ms and fault-tolerant routing through peak bursts. He also built and deployed a cross-platform Electron application on edge devices surfacing live system health and camera telemetry, accelerating incident detection and resolution.',
   })
   chunks.push({
     id: 'exp-visionify-palletvision',
@@ -112,13 +112,6 @@ export function buildKnowledgeBase(): KnowledgeChunk[] {
     metadata: { company: 'Sneaco.in', role: 'Software Developer Intern', period: 'February 2024 - July 2024' },
     content:
       'At Sneaco.in, Ayush built a location-aware laundromat discovery Flutter mobile application single-handedly, enabling service discovery within a 5 km radius for doorstep pickup and delivery. He reduced backend request latency by 30% by introducing in-memory caching and optimizing REST endpoints. He integrated payment gateways, built auth services, and designed an order scheduling system for pickup and delivery logistics.',
-  })
-  chunks.push({
-    id: 'exp-visanka',
-    category: 'Experience',
-    metadata: { company: 'Visanka Technology', role: 'Backend Developer', period: 'December 2023 - January 2024' },
-    content:
-      'At Visanka Technology, Ayush led end-to-end backend development of a real-time cross-platform chat application from database schema design to API deployment. He built a real-time messaging system using Spring Boot + WebSocket, enabling instant communication between Flutter frontend and backend. He designed secure authentication flows and MongoDB data models that scaled with growing user base.',
   })
   chunks.push({
     id: 'exp-zolatte',

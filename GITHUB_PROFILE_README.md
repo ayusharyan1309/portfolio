@@ -61,11 +61,6 @@ I don't just write code — I own outcomes end-to-end.
 - Constructed a fault-tolerant bulk data-ingestion pipeline (**50K+ rows/file, 2K+ files/batch**) with validation and retries
 - Built exhibitor payment workflows and real-time notifications on a **Kafka + Redis** event-driven architecture
 
-### Backend Developer @ [Visanka Technology](https://visankatechnologies.com/)
-*Dec 2023 – Jan 2024 · Spring Boot, WebSocket, MongoDB*
-- Led end-to-end backend development of a real-time cross-platform chat application
-- Built real-time messaging system using Spring Boot + WebSocket
-- Designed secure authentication flows and MongoDB data models
 
 ### Flutter Developer @ [Zolatte](https://zolatte.com/)
 *Apr 2023 – Aug 2023 · Flutter, OpenAI API*

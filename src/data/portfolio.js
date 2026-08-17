@@ -143,20 +143,6 @@ export const personalInfo = {
       ],
     },
     {
-      company: 'Visanka Technology',
-      url: 'https://visankatechnologies.com/',
-      role: 'Backend Developer',
-      period: 'December 2023 - January 2024',
-      tech: 'Spring Boot, WebSocket, MongoDB',
-      techKeywords: 'Spring Boot, WebSocket, MongoDB, REST API, Real-Time Systems',
-      highlights: [
-        'Led end-to-end backend development of a real-time cross-platform chat application from database schema design to API deployment.',
-        'Built real-time messaging system using Spring Boot + WebSocket, enabling instant communication between Flutter frontend and backend.',
-        'Designed secure authentication flows and MongoDB data models that scaled with growing user base.',
-        'Owned the full backend lifecycle — requirement analysis, architecture, implementation, testing, and production release.',
-      ],
-    },
-    {
       company: 'Zolatte',
       url: 'https://zolatte.com/',
       role: 'Flutter Developer',
@@ -391,11 +377,6 @@ export const seoJsonLd = {
         {
           '@type': 'Organization',
           name: 'Sneaco.in',
-        },
-        {
-          '@type': 'Organization',
-          name: 'Visanka Technology',
-          url: 'https://visankatechnologies.com/',
         },
         {
           '@type': 'Organization',

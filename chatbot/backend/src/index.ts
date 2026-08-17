@@ -29,7 +29,13 @@ async function getEmbeddedChunks(env: Env) {
   if (embeddedChunks) return embeddedChunks
 
   const { embedBatch } = await import('./rag/embedder')
-  const texts = rawChunks.map((c) => c.content)
+  // Embed metadata (company, role, period) alongside content so queries like
+  // "where does he work" surface experience chunks by employer, not just keywords.
+  const texts = rawChunks.map((c) => {
+    const meta = c.metadata ?? {}
+    const metaParts = [meta.company, meta.role, meta.period, meta.project].filter(Boolean).join(', ')
+    return metaParts ? `${metaParts}. ${c.content}` : c.content
+  })
   const embeddings = await embedBatch(texts, env)
 
   embeddedChunks = rawChunks.map((chunk, i) => ({
