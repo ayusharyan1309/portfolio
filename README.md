@@ -17,9 +17,9 @@
 ## ✨ Features
 
 - **Hero Section** — Animated typing effect, smooth scroll navigation, responsive design
-- **About** — Bio, impact stats (400K+ users, 4 apps shipped), "Why Hire Me" cards
-- **Experience** — Timeline with 4 roles (Visionify, EventStrat, Visanka, Zolatte)
-- **Projects** — 7 project cards with tech stack, GitHub links, and external details
+- **About** — Bio, impact stats (100K+ concurrent users, 4 apps shipped), "Why Hire Me" cards
+- **Experience** — Timeline with roles at Visionify, EventStrat, Sneaco, Visanka, and Zolatte
+- **Projects** — 9 project cards with tech stack, GitHub links, and external details
 - **Skills** — Visual grid with tech badges (Java, Spring Boot, Kafka, Redis, AI/ML, etc.)
 - **Contact** — Location, email, phone, social links
 - **AI Chatbot** — Floating RAG chatbot that answers questions about Ayush using LLM + embeddings

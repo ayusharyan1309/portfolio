@@ -5,14 +5,14 @@
 **Backend Engineer · Product Builder · Ships Fast**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ayusharyan1309/)
-[![Portfolio](https://img.shields.io/badge/Portfolio-12d640?style=for-the-badge&logo=react&logoColor=white)](https://ayusharyan13.github.io/portfolio/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-12d640?style=for-the-badge&logo=react&logoColor=white)](https://ayush-aryan1309-portfolio.vercel.app/)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://leetcode.com/u/ayusharyan1309/)
 [![GeeksforGeeks](https://img.shields.io/badge/GeeksforGeeks-2F8D46?style=for-the-badge&logo=geeksforgeeks&logoColor=white)](https://auth.geeksforgeeks.org/user/ayusharyan1309/practice)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ayusharyan1309@gmail.com)
 
 ---
 
-**High-impact backend engineer** building scalable systems used by **400K+ users**. I specialize in **Java, Spring Boot, Apache Kafka, Redis, Microservices, and AI/ML**. B.Tech in Data Science & AI from BML Munjal University.
+**High-impact backend engineer** building scalable event-driven systems for platforms with **100K+ concurrent users**. I specialize in **Java, Spring Boot, Apache Kafka, Redis, gRPC, Microservices, and GenAI/RAG**. B.Tech from BML Munjal University.
 
 I don't just write code — I own outcomes end-to-end.
 
@@ -50,18 +50,19 @@ I don't just write code — I own outcomes end-to-end.
 
 ### Software Engineer @ [Visionify Inc.](https://www.visionify.ai/)
 *Sep 2025 – Present · Java, Spring Boot, Kafka, Redis*
-- Architecting event-driven microservices serving **400K+ users** with **<50ms latency**
-- Designed Redis caching layer cutting DB load by **60%**, improving API response times **3x**
-- Built distributed event streaming pipelines processing **1M+ events/day**
+- Own the event-driven alerting service delivering real-time safety notifications across **Email, Microsoft Teams, and WhatsApp** — **10K+ events/day** with **<150ms** end-to-end response times
+- Building **PalletVision** end-to-end (CV detection model + backend + frontend) — real-time pallet build/dismantle tracking with productivity, grading, and dimensional analytics
+- Built **ErgoVision**, a mobile computer-vision app delivering GenAI-personalized ergonomic recommendations from real-time posture analysis
+- Deployed a cross-platform **Electron app on edge devices** surfacing live system health and camera telemetry
 
-### Software Developer (SDE 1) @ [EventStrat](https://eventstrat.ai/)
-*Feb 2025 – Sep 2025 · Java, Spring Boot, Microservices*
-- Built the backend architecture for an AI-powered event infrastructure platform from the ground up
-- Designed scalable microservices for event websites, registrations, and real-time analytics
-- Implemented Kafka event pipelines for reliable, fault-tolerant data ingestion
+### Software Engineer (SDE-1) @ [EventStrat](https://eventstrat.ai/)
+*Feb 2025 – Aug 2025 · Java, Spring Boot, Kafka, Redis*
+- Architected backend microservices for a global event-CRM platform supporting **100K+ concurrent users**
+- Constructed a fault-tolerant bulk data-ingestion pipeline (**50K+ rows/file, 2K+ files/batch**) with validation and retries
+- Built exhibitor payment workflows and real-time notifications on a **Kafka + Redis** event-driven architecture
 
 ### Backend Developer @ [Visanka Technology](https://visankatechnologies.com/)
-*Dec 2023 – Aug 2025 · Spring Boot, WebSocket, MongoDB*
+*Dec 2023 – Jan 2024 · Spring Boot, WebSocket, MongoDB*
 - Led end-to-end backend development of a real-time cross-platform chat application
 - Built real-time messaging system using Spring Boot + WebSocket
 - Designed secure authentication flows and MongoDB data models
@@ -76,21 +77,21 @@ I don't just write code — I own outcomes end-to-end.
 
 | Project | Tech Stack | Description |
 |---------|-----------|-------------|
-| [**Microservices E-Commerce**](https://github.com/ayusharyan13/microservices-based-E-Commerce-app) | Java, Spring Boot, MongoDB, MySQL, JPA | 3-service microservices architecture with Testcontainers testing |
-| [**Chat App Backend**](https://github.com/ayusharyan13/chat-app-backend) | Spring Boot, WebSocket, Kafka, Firebase, MySQL | Real-time chat with WebSocket, Kafka event-driven, AWS S3 |
-| [**Wellness App Backend**](https://github.com/ayusharyan13/wellness-app-backend) | Spring Boot, Redis, Kafka, JWT, Docker | Appointment booking, Redis slot management, Kafka notifications |
-| [**Sentiment Analysis**](https://github.com/ayusharyan13/Sentiment-Analysis) | Python, Flask, XGBoost, NLP | Sentiment-based product recommendation system |
-| [**E-Commerce App**](https://github.com/ayusharyan13/E-CommerceApp) | Flutter, Node.js, MongoDB | Full-stack marketplace with auth & product management |
-| [**Covid-19 Tracker**](https://github.com/ayusharyan13/portfolio) | Flutter, REST API | Real-time global COVID-19 statistics with interactive charts |
-| [**Rainfall Prediction**](https://github.com/ayusharyan13/portfolio) | Python, Scikit-learn | ML-based rainfall prediction with data preprocessing |
+| [**Microservices E-Commerce**](https://github.com/ayusharyan1309/microservices-based-E-Commerce-app) | Java, Spring Boot, MongoDB, MySQL, JPA | 3-service microservices architecture with Testcontainers testing |
+| [**Chat App Backend**](https://github.com/ayusharyan1309/chat-app-backend) | Spring Boot, WebSocket, Kafka, Firebase, MySQL | Real-time chat with WebSocket, Kafka event-driven, AWS S3 |
+| [**Wellness App Backend**](https://github.com/ayusharyan1309/wellness-app-backend) | Spring Boot, Redis, Kafka, JWT, Docker | Appointment booking, Redis slot management, Kafka notifications |
+| [**Sentiment Analysis**](https://github.com/ayusharyan1309/Sentiment-Analysis) | Python, Flask, XGBoost, NLP | Sentiment-based product recommendation system |
+| [**E-Commerce App**](https://github.com/ayusharyan1309/E-CommerceApp) | Flutter, Node.js, MongoDB | Full-stack marketplace with auth & product management |
+| [**Covid-19 Tracker**](https://github.com/ayusharyan1309/portfolio) | Flutter, REST API | Real-time global COVID-19 statistics with interactive charts |
+| [**Rainfall Prediction**](https://github.com/ayusharyan1309/portfolio) | Python, Scikit-learn | ML-based rainfall prediction with data preprocessing |
 
 ## 📊 GitHub Stats
 
 <div align="center">
 
-![Ayush's GitHub stats](https://github-readme-stats.vercel.app/api?username=ayusharyan13&show_icons=true&theme=dark&hide_border=true&count_private=true&include_all_commits=true)
-[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=ayusharyan13&theme=dark&hide_border=true&date_format=j%20M%5B%20Y%5D&mode=weekly)](https://git.io/streak-stats)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=ayusharyan13&layout=compact&theme=dark&hide_border=true&langs_count=8)
+![Ayush's GitHub stats](https://github-readme-stats.vercel.app/api?username=ayusharyan1309&show_icons=true&theme=dark&hide_border=true&count_private=true&include_all_commits=true)
+[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=ayusharyan1309&theme=dark&hide_border=true&date_format=j%20M%5B%20Y%5D&mode=weekly)](https://git.io/streak-stats)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=ayusharyan1309&layout=compact&theme=dark&hide_border=true&langs_count=8)
 
 </div>
 
@@ -100,7 +101,7 @@ I don't just write code — I own outcomes end-to-end.
 
 ## 📫 Let's Connect
 
-- **Portfolio:** [ayusharyan13.github.io/portfolio](https://ayusharyan13.github.io/portfolio/)
+- **Portfolio:** [ayush-aryan1309-portfolio.vercel.app](https://ayush-aryan1309-portfolio.vercel.app/)
 - **Email:** [ayusharyan1309@gmail.com](mailto:ayusharyan1309@gmail.com)
 - **LinkedIn:** [linkedin.com/in/ayusharyan1309](https://www.linkedin.com/in/ayusharyan1309/)
 - **LeetCode:** [leetcode.com/u/ayusharyan1309](https://leetcode.com/u/ayusharyan1309/)

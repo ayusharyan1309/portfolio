@@ -15,14 +15,14 @@ export const personalInfo = {
   birthday: '13 September 2002',
   resumeLink:
     'https://drive.google.com/file/d/1-WyRbkTcbU4HA-hnXWdH5loh15qhnruJ/view?usp=drive_link',
-  siteUrl: 'https://ayusharyan13.github.io/portfolio/',
+  siteUrl: 'https://ayush-aryan1309-portfolio.vercel.app/',
   socialLinks: [
     {
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/ayusharyan1309/',
       icon: 'linkedin',
     },
-    { name: 'GitHub', url: 'https://github.com/ayusharyan13', icon: 'github' },
+    { name: 'GitHub', url: 'https://github.com/ayusharyan1309', icon: 'github' },
     { name: 'Email', url: 'mailto:ayusharyan1309@gmail.com', icon: 'mail' },
     {
       name: 'LeetCode',
@@ -36,31 +36,31 @@ export const personalInfo = {
     },
   ],
   heroDescription:
-    "Backend engineer who <strong>ships fast</strong> and <strong>builds scalable</strong> systems serving <strong>400K+ users</strong> — with <strong>Java, Spring Boot, Kafka, Redis, AI/ML, and Distributed Systems</strong>. Based in <strong>Hyderabad, India</strong>.",
+    "Backend engineer who <strong>ships fast</strong> and <strong>builds scalable</strong> event-driven systems for platforms with <strong>100K+ concurrent users</strong> — with <strong>Java, Spring Boot, Kafka, Redis, gRPC, and GenAI/RAG</strong>. Based in <strong>Hyderabad, India</strong>.",
   aboutBio: [
-    "I'm a <strong>high-impact backend engineer</strong> who ships fast and builds scalable systems used by <strong>400K+ users</strong>. With a <strong>B.Tech in Data Science & AI</strong> from BML Munjal University and hands-on startup experience, I bring a <strong>product builder mindset</strong> — I don't just write code, I own outcomes end-to-end.",
-    'From architecting <strong>event-driven microservices</strong> (Java/Spring Boot/Kafka) to launching AI apps on the App Store, I build <strong>production systems that move fast and scale hard</strong>. I specialize in <strong>Java, Spring Boot, Apache Kafka, Redis, Microservices Architecture, RAG, LLMs, and Distributed Systems</strong>.',
+    "I'm a <strong>high-impact backend engineer</strong> who ships fast and builds scalable event-driven systems for platforms supporting <strong>100K+ concurrent users</strong>. With a <strong>B.Tech in Data Science & AI</strong> from BML Munjal University and hands-on startup experience, I bring a <strong>product builder mindset</strong> — I don't just write code, I own outcomes end-to-end.",
+    'From architecting <strong>event-driven microservices</strong> (Java/Spring Boot/Kafka) to building <strong>computer-vision products end-to-end</strong> and launching AI apps on the App Store, I build <strong>production systems that move fast and scale hard</strong>. I specialize in <strong>Java, Spring Boot, Apache Kafka, Redis, gRPC, Microservices Architecture, Computer Vision, RAG, LLMs, and Distributed Systems</strong>.',
   ],
   lookingFor:
     "I'm looking for founders and engineering leaders who need a <strong>cracked engineer</strong> to own backend architecture, ship rapidly, and build infrastructure that scales. Whether as a <strong>Software Engineer</strong> or an <strong>early-stage founding engineer</strong>, I'm ready to drive impact.",
-  techStackDescription: 'Java • Spring Boot • Apache Kafka • Redis • Microservices • AI/ML • RAG • LLMs • LangChain • PyTorch • Flutter • MongoDB',
+  techStackDescription: 'Java • Spring Boot • Apache Kafka • Redis • gRPC • Microservices • GenAI • RAG • LLMs • LangChain4j • Docker • AWS • Flutter • MySQL • MongoDB',
   stats: [
-    { value: '400', suffix: 'K+', label: 'Users Served', icon: 'users' },
-    { value: '3', suffix: '+', label: 'Years Building Products', icon: 'rocket' },
+    { value: '100', suffix: 'K+', label: 'Concurrent Users Supported', icon: 'users' },
+    { value: '10', suffix: 'K+', label: 'Events Processed Daily', icon: 'rocket' },
     { value: '4', suffix: '', label: 'Apps Shipped to Production', icon: 'check' },
-    { value: '3', suffix: '+', label: 'Years Java/Spring Boot Exp.', icon: 'database' },
+    { value: '3', suffix: '+', label: 'Years Building Products', icon: 'database' },
   ],
   whyHireMe: [
     {
       emoji: '🚀',
       title: 'Ships Fast',
-      desc: '4 apps shipped to production. From concept to App Store in under 4 months. Built and deployed microservices for 400K+ users.',
+      desc: '4 apps shipped to production. From concept to App Store in under 4 months. Owns production services processing 10K+ safety events/day.',
       keywords: 'agile delivery, rapid prototyping, fast iteration',
     },
     {
       emoji: '⚡',
       title: 'Builds Scalable',
-      desc: 'Event-driven microservices processing 1M+ events/day. Redis caching cutting DB load by 60%. <50ms API latency at scale.',
+      desc: 'Event-driven microservices for platforms with 100K+ concurrent users. Kafka + Redis pipelines holding end-to-end API latency under 150ms at peak.',
       keywords: 'scalable architecture, high-throughput, low-latency',
     },
     {
@@ -72,16 +72,17 @@ export const personalInfo = {
     {
       emoji: '🔧',
       title: 'Full-Stack Capable',
-      desc: 'Strong backend core (Java, Spring Boot, Kafka) plus AI/ML (RAG, LLMs, LangChain) and mobile (Flutter, 2 App Store launches).',
+      desc: 'Strong backend core (Java, Spring Boot, Kafka, gRPC) plus AI (Computer Vision, RAG, LLMs, LangChain4j) and mobile (Flutter, 2 App Store launches).',
       keywords: 'full-stack, AI integration, mobile development',
     },
   ],
   coreCompetencies: [
-    'Java', 'Spring Boot', 'Microservices', 'Apache Kafka', 'Redis',
+    'Java', 'Spring Boot', 'Microservices', 'Apache Kafka', 'Redis', 'gRPC',
+    'Docker', 'AWS (EC2, S3)', 'Jenkins (CI/CD)',
     'Distributed Systems', 'System Design', 'Event-Driven Architecture',
-    'RAG (Retrieval-Augmented Generation)', 'LLMs', 'LangChain',
-    'Machine Learning', 'Deep Learning', 'Natural Language Processing',
-    'PyTorch', 'REST API Design', 'WebSocket', 'MongoDB', 'Flutter',
+    'RAG (Retrieval-Augmented Generation)', 'LLMs', 'LangChain4j',
+    'Computer Vision', 'Machine Learning', 'Deep Learning', 'Natural Language Processing',
+    'PyTorch', 'Elasticsearch', 'REST API Design', 'WebSocket', 'MongoDB', 'Flutter',
     'Product Building', 'High-Impact Engineering', 'Cloud Architecture',
   ],
   education: {
@@ -102,36 +103,50 @@ export const personalInfo = {
     {
       company: 'Visionify Inc.',
       url: 'https://www.visionify.ai/',
-      role: 'Software Engineer',
+      role: 'Software Engineer (SDE-1)',
       period: 'September 2025 - Present',
-      tech: 'Java, Spring Boot, Kafka, Redis',
-      techKeywords: 'Java, Spring Boot, Apache Kafka, Redis, Microservices, Event-Driven Architecture, Distributed Systems, System Design',
+      tech: 'Java, Spring Boot, Kafka, Redis, Computer Vision, Electron',
+      techKeywords: 'Java, Spring Boot, Apache Kafka, Redis, gRPC, Computer Vision, GenAI, Electron, Microservices, Event-Driven Architecture, Distributed Systems, System Design',
       highlights: [
-        'Architecting and building event-driven microservices serving <strong>400K+ users</strong> with <strong>&lt;50ms latency</strong> using Java, Spring Boot, and Apache Kafka.',
-        'Designed Redis caching layer cutting database load by <strong>60%</strong> and improving API response times by <strong>3x</strong>.',
-        'Implemented distributed event streaming pipelines processing <strong>1M+ events/day</strong> for real-time data ingestion across services.',
-        'Owned end-to-end delivery of critical backend modules — from architecture through deployment and monitoring.',
+        'Own the event-driven alerting service delivering real-time workplace-safety notifications across <strong>Email, Microsoft Teams, and WhatsApp</strong> — processing <strong>10K+ events/day</strong> with end-to-end API response times <strong>under 150ms</strong> and fault-tolerant routing through peak bursts.',
+        'Building <strong>PalletVision</strong> end-to-end with full ownership of the CV detection model, backend services, and frontend — tracking pallet builds and dismantles in real time to power productivity, grading, and dimensional analytics for pallet manufacturers.',
+        'Built <strong>ErgoVision</strong>, a mobile computer-vision app that analyzes worker posture in real time and delivers GenAI-personalized ergonomic recommendations.',
+        'Deployed a cross-platform <strong>Electron application on edge devices</strong> surfacing live system health and camera telemetry, accelerating incident detection and resolution.',
       ],
     },
     {
       company: 'EventStrat',
       url: 'https://eventstrat.ai/',
-      role: 'Software Developer (SDE 1)',
-      period: 'February 2025 - September 2025',
-      tech: 'Java, Spring Boot, Microservices',
-      techKeywords: 'Java, Spring Boot, Microservices, Apache Kafka, Backend Architecture',
+      role: 'Software Engineer (SDE-1)',
+      period: 'February 2025 - August 2025',
+      tech: 'Java, Spring Boot, Kafka, Redis, Microservices',
+      techKeywords: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, Elasticsearch, Backend Architecture, Data Ingestion, Payments',
       highlights: [
-        'Built the backend architecture for an AI-powered event infrastructure platform from the ground up using Java and Spring Boot.',
-        'Designed scalable microservices handling event websites, registrations, and real-time analytics for large-scale enterprise events.',
-        'Implemented Kafka event pipelines ensuring reliable, fault-tolerant data ingestion across distributed services.',
-        'Worked directly with product and design teams in a fast-paced startup — shipping features, iterating fast, and owning the outcome.',
+        'Architected backend microservices for a global event-CRM platform supporting <strong>100K+ concurrent users</strong> across international events.',
+        'Constructed a fault-tolerant bulk data-ingestion pipeline (<strong>50K+ rows/file, 2K+ files/batch</strong>) with schema validation and automatic retries.',
+        'Built exhibitor payment workflows supporting multi-installment plans, event-specific tax calculation, and automated payment reminders.',
+        'Enabled real-time notifications and attendee tracking with a distributed, event-driven architecture on <strong>Kafka and Redis</strong>.',
+      ],
+    },
+    {
+      company: 'Sneaco.in',
+      url: '#',
+      role: 'Software Developer Intern',
+      period: 'February 2024 - July 2024',
+      tech: 'Flutter, REST API, In-Memory Caching, Payment Gateway, Auth',
+      techKeywords: 'Flutter, REST API, In-Memory Caching, Payment Gateway, Auth Service, Location-Based Services, Order Scheduling, Logistics, Mobile App Development',
+      highlights: [
+        'Delivered a Flutter-based mobile application with <strong>location-aware service discovery</strong> within a 5 km radius, built and shipped <strong>single-handedly</strong>.',
+        'Reduced backend request latency by <strong>30%</strong> by introducing in-memory caching and optimizing REST endpoints.',
+        'Integrated <strong>payment gateways</strong> and built <strong>auth services</strong> for secure user onboarding and transactions.',
+        'Designed <strong>order scheduling</strong> system for pickup and delivery logistics management.',
       ],
     },
     {
       company: 'Visanka Technology',
       url: 'https://visankatechnologies.com/',
       role: 'Backend Developer',
-      period: 'December 2023 - August 2025',
+      period: 'December 2023 - January 2024',
       tech: 'Spring Boot, WebSocket, MongoDB',
       techKeywords: 'Spring Boot, WebSocket, MongoDB, REST API, Real-Time Systems',
       highlights: [
@@ -158,13 +173,31 @@ export const personalInfo = {
   ],
   projects: [
     {
+      title: 'AI Portfolio Assistant (RAG Chatbot)',
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000',
+      category: 'app',
+      description:
+        'This very portfolio — a React site with an integrated RAG chatbot that answers recruiter questions about my work. Retrieval over embedded resume and project documents using Cloudflare Workers AI embeddings and vector similarity search, deployed on a zero-cost serverless stack (Vercel + Cloudflare Workers).',
+      techStack: 'React, TypeScript, Python, RAG, Cloudflare Workers AI, Vercel',
+      github: 'https://github.com/ayusharyan1309/portfolio',
+    },
+    {
+      title: 'LTXGO Ride Operations Platform',
+      image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2000',
+      category: 'app',
+      description:
+        'Backend services for booking, dispatch, and multi-vehicle ride orchestration built with Spring Boot, MySQL, JPA/Hibernate, and Liquibase. Real-time ride tracking and notifications via WebSocket, Firebase FCM, and Redis-backed asynchronous workflows, with Flutter mobile and React CRM clients.',
+      techStack: 'Java, Spring Boot, MySQL, WebSocket, Firebase, Flutter, React',
+      github: '#',
+    },
+    {
       title: 'Microservices E-Commerce',
       image: 'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?q=80&w=2000',
       category: 'app',
       description:
         'Backend microservices architecture for an e-commerce platform built with Spring Boot 3.3. Features three independent services — product (MongoDB), order (MySQL), and inventory (MySQL) — with REST APIs, DTO patterns, JPA/Hibernate, and Testcontainers integration testing.',
       techStack: 'Java, Spring Boot, Microservices, MongoDB, MySQL, JPA, Hibernate',
-      github: 'https://github.com/ayusharyan13/microservices-based-E-Commerce-app',
+      github: 'https://github.com/ayusharyan1309/microservices-based-E-Commerce-app',
     },
     {
       title: 'Chat App Backend',
@@ -173,7 +206,7 @@ export const personalInfo = {
       description:
         'Full-featured real-time chat backend built with Spring Boot 3.5 and Java 17 featuring Firebase authentication, WebSocket (STOMP over SockJS) messaging, Apache Kafka event-driven architecture, MySQL with Liquibase migrations, and AWS S3 integration. Exposes rich REST + WebSocket APIs for messaging, typing indicators, conversation management, blocking/unblocking, and paginated message history.',
       techStack: 'Java, Spring Boot, WebSocket, Kafka, Firebase Auth, MySQL, JPA, Liquibase, AWS S3',
-      github: 'https://github.com/ayusharyan13/chat-app-backend',
+      github: 'https://github.com/ayusharyan1309/chat-app-backend',
     },
     {
       title: 'Rainfall Prediction App',
@@ -192,7 +225,7 @@ export const personalInfo = {
       description:
         'Full-featured wellness platform backend built with Spring Boot 3.3 and Java 17. Features appointment booking with real-time slot management (Redis), blog system with image uploads (Cloudinary), JWT authentication, Kafka-powered notifications, MySQL persistence, and Docker containerization. Includes Swagger/OpenAPI docs and a comprehensive REST API.',
       techStack: 'Java, Spring Boot, MySQL, Redis, Kafka, JWT, Cloudinary, Docker',
-      github: 'https://github.com/ayusharyan13/wellness-app-backend',
+      github: 'https://github.com/ayusharyan1309/wellness-app-backend',
     },
     {
       title: 'Sentiment Analysis',
@@ -201,7 +234,7 @@ export const personalInfo = {
       description:
         'Sentiment-based product recommendation system built with Python and Flask. Uses TF-IDF vectorization and XGBoost for review sentiment classification, SMOTE for class imbalance handling, and collaborative filtering for personalized product recommendations. Deployed with a Flask web interface for interactive testing.',
       techStack: 'Python, Flask, XGBoost, Scikit-learn, NLTK, Pandas, NLP',
-      github: 'https://github.com/ayusharyan13/Sentiment-Analysis',
+      github: 'https://github.com/ayusharyan1309/Sentiment-Analysis',
     },
     {
       title: 'Covid-19 Tracker',
@@ -220,7 +253,7 @@ export const personalInfo = {
       description:
         'Full-stack marketplace app built with Flutter, Node.js, and MongoDB with REST APIs, user authentication, and product management.',
       techStack: 'Flutter, Node.js, MongoDB, REST APIs',
-      github: 'https://github.com/ayusharyan13/E-CommerceApp',
+      github: 'https://github.com/ayusharyan1309/E-CommerceApp',
       details: '/projects/e-commerce.html',
     },
   ],
@@ -282,21 +315,21 @@ export const seoJsonLd = {
   '@graph': [
     {
       '@type': 'Person',
-      '@id': 'https://ayusharyan13.github.io/portfolio/#person',
+      '@id': 'https://ayush-aryan1309-portfolio.vercel.app/#person',
       name: 'Ayush Aryan',
-      url: 'https://ayusharyan13.github.io/portfolio/',
-      image: 'https://ayusharyan13.github.io/portfolio/assets/img/project/ProfilePicFinal.jpg',
+      url: 'https://ayush-aryan1309-portfolio.vercel.app/',
+      image: 'https://ayush-aryan1309-portfolio.vercel.app/og-image.jpg',
       jobTitle: 'Software Engineer',
       description:
         'High-impact Software Engineer who ships fast and builds scalable backend systems. Specializing in Java, Spring Boot, Apache Kafka, Redis, Microservices, and AI/ML.',
       disambiguatingDescription:
-        'Backend engineer specializing in Java, Spring Boot, Microservices, Kafka, Redis, and AI/ML. Built systems serving 400K+ users. B.Tech in Data Science & AI from BML Munjal University.',
+        'Backend engineer specializing in Java, Spring Boot, Microservices, Kafka, Redis, gRPC, and GenAI/RAG. Built event-driven systems for platforms supporting 100K+ concurrent users. B.Tech in Data Science & AI from BML Munjal University.',
       email: 'ayusharyan1309@gmail.com',
       telephone: '+918340646275',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Hyderabad',
-        addressRegion: 'Haryana',
+        addressRegion: 'Telangana',
         addressCountry: 'India',
       },
       birthDate: '2002-09-13',
@@ -308,7 +341,7 @@ export const seoJsonLd = {
       hasOccupation: {
         '@type': 'Occupation',
         name: 'Software Engineer',
-        skills: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, Distributed Systems, System Design, Machine Learning, Deep Learning, RAG, LLMs, LangChain, Flutter',
+        skills: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, gRPC, Distributed Systems, System Design, Computer Vision, Machine Learning, RAG, LLMs, LangChain4j, Elasticsearch, Flutter',
       },
       seeks: {
         '@type': 'JobPosting',
@@ -321,20 +354,21 @@ export const seoJsonLd = {
           address: {
             '@type': 'PostalAddress',
             addressLocality: 'Hyderabad',
-            addressRegion: 'Haryana',
+            addressRegion: 'Telangana',
             addressCountry: 'India',
           },
         },
       },
       award: [
         'Built and shipped 4 apps to production (App Store & Play Store)',
-        'Architected microservices serving 400K+ users with <50ms latency',
+        'Architected event-driven microservices for platforms supporting 100K+ concurrent users',
         'One of the first Hindi-language AI apps (CHATGURU)',
       ],
       knowsAbout: [
         'Java', 'Spring Boot', 'Microservices', 'Apache Kafka', 'Redis',
         'Backend Engineering', 'Distributed Systems', 'System Design',
-        'Event-Driven Architecture', 'Machine Learning', 'Deep Learning',
+        'Event-Driven Architecture', 'gRPC', 'Computer Vision', 'Elasticsearch',
+        'Machine Learning', 'Deep Learning',
         'Natural Language Processing', 'RAG (Retrieval-Augmented Generation)',
         'Large Language Models', 'LangChain', 'Hugging Face', 'PyTorch',
         'TensorFlow', 'REST API Design', 'WebSocket', 'MongoDB', 'MySQL',
@@ -355,6 +389,10 @@ export const seoJsonLd = {
         },
         {
           '@type': 'Organization',
+          name: 'Sneaco.in',
+        },
+        {
+          '@type': 'Organization',
           name: 'Visanka Technology',
           url: 'https://visankatechnologies.com/',
         },
@@ -366,38 +404,38 @@ export const seoJsonLd = {
       ],
       sameAs: [
         'https://www.linkedin.com/in/ayusharyan1309/',
-        'https://github.com/ayusharyan13',
+        'https://github.com/ayusharyan1309',
         'https://leetcode.com/u/ayusharyan1309/',
         'https://auth.geeksforgeeks.org/user/ayusharyan1309/practice',
       ],
       mainEntityOfPage: {
         '@type': 'ProfilePage',
-        '@id': 'https://ayusharyan13.github.io/portfolio/',
+        '@id': 'https://ayush-aryan1309-portfolio.vercel.app/',
       },
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://ayusharyan13.github.io/portfolio/#website',
-      url: 'https://ayusharyan13.github.io/portfolio/',
+      '@id': 'https://ayush-aryan1309-portfolio.vercel.app/#website',
+      url: 'https://ayush-aryan1309-portfolio.vercel.app/',
       name: 'Ayush Aryan — Software Engineer Portfolio',
       description:
         'High-impact Software Engineer specializing in Java, Spring Boot, Microservices, Apache Kafka, Redis, and AI/ML. Based in Hyderabad, India.',
       publisher: {
         '@type': 'Person',
-        '@id': 'https://ayusharyan13.github.io/portfolio/#person',
+        '@id': 'https://ayush-aryan1309-portfolio.vercel.app/#person',
       },
       inLanguage: 'en-IN',
     },
     {
       '@type': 'ProfilePage',
-      '@id': 'https://ayusharyan13.github.io/portfolio/#profile',
-      url: 'https://ayusharyan13.github.io/portfolio/',
+      '@id': 'https://ayush-aryan1309-portfolio.vercel.app/#profile',
+      url: 'https://ayush-aryan1309-portfolio.vercel.app/',
       name: 'Ayush Aryan — Software Engineer | Java, Spring Boot, AI/ML',
       description:
         'Personal portfolio of Ayush Aryan, a high-impact backend engineer specializing in Java, Spring Boot, Microservices, and AI/ML.',
       mainEntity: {
         '@type': 'Person',
-        '@id': 'https://ayusharyan13.github.io/portfolio/#person',
+        '@id': 'https://ayush-aryan1309-portfolio.vercel.app/#person',
       },
     },
   ],
@@ -413,7 +451,7 @@ export const faqSchema = {
       name: 'What technologies does Ayush Aryan work with?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, AI/ML (RAG, LLMs, LangChain, PyTorch), Distributed Systems, System Design, MongoDB, WebSocket, Flutter.',
+        text: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, gRPC, Computer Vision, GenAI (RAG, LLMs, LangChain4j), Docker, AWS, Elasticsearch, Distributed Systems, System Design, MySQL, MongoDB, WebSocket, Flutter.',
       },
     },
     {
@@ -429,7 +467,7 @@ export const faqSchema = {
       name: 'Has Ayush shipped production applications?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, 4 apps shipped to production including apps on the App Store and Play Store, and microservices platforms serving 400K+ users.',
+        text: 'Yes, 4 apps shipped to production including apps on the App Store and Play Store, and event-driven microservices for platforms supporting 100K+ concurrent users.',
       },
     },
     {

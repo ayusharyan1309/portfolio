@@ -66,7 +66,7 @@ export default function About() {
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#12d640]" />
                   <span className="text-gray-400 w-24 shrink-0">Building:</span>
-                  <span className="text-gray-200">Microservices for 400K+ users</span>
+                  <span className="text-gray-200">Event-driven systems, 10K+ events/day</span>
                 </div>
               </div>
               <div className="space-y-2.5">

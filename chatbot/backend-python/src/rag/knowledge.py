@@ -33,8 +33,9 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         category="About",
         content=(
             "Ayush Aryan is a high-impact backend engineer who ships fast and builds "
-            "scalable systems used by 400K+ users. He has a B.Tech in Data Science & AI "
-            "from BML Munjal University and startup experience. He brings a product builder "
+            "scalable event-driven systems for platforms supporting 100K+ concurrent users. "
+            "He has 1.5+ years of full-time software engineering experience, a B.Tech from "
+            "BML Munjal University, and startup experience. He brings a product builder "
             "mindset — he doesn't just write code, he owns outcomes end-to-end."
         ),
     ))
@@ -42,9 +43,9 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="about-specialization",
         category="About",
         content=(
-            "Ayush specializes in Java, Spring Boot, Apache Kafka, Redis, Microservices "
-            "Architecture, RAG, LLMs, and Distributed Systems. He builds production systems "
-            "that move fast and scale hard."
+            "Ayush specializes in Java, Spring Boot, Apache Kafka, Redis, gRPC, Microservices "
+            "Architecture, Computer Vision, GenAI/RAG, LLMs, and Distributed Systems. He builds "
+            "production systems that move fast and scale hard."
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -70,15 +71,16 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         category="Why Hire Me",
         content=(
             "Ayush ships fast — 4 apps shipped to production, from concept to App Store in "
-            "under 4 months. He has built and deployed microservices for 400K+ users."
+            "under 4 months. He owns production services processing 10K+ safety events per day."
         ),
     ))
     chunks.append(KnowledgeChunk(
         id="why-builds-scalable",
         category="Why Hire Me",
         content=(
-            "Ayush builds scalable systems — event-driven microservices processing 1M+ "
-            "events/day, Redis caching cutting database load by 60%, and <50ms API latency at scale."
+            "Ayush builds scalable systems — event-driven microservices for platforms with "
+            "100K+ concurrent users, with Kafka and Redis pipelines holding end-to-end API "
+            "latency under 150ms at peak."
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -94,8 +96,8 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="why-fullstack",
         category="Why Hire Me",
         content=(
-            "Ayush is full-stack capable — strong backend core (Java, Spring Boot, Kafka) "
-            "plus AI/ML (RAG, LLMs, LangChain) and mobile development (Flutter, 2 App Store launches)."
+            "Ayush is full-stack capable — strong backend core (Java, Spring Boot, Kafka, gRPC) "
+            "plus GenAI (RAG, LLMs, LangChain4j) and mobile development (Flutter, 2 App Store launches)."
         ),
     ))
 
@@ -103,33 +105,68 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
     chunks.append(KnowledgeChunk(
         id="exp-visionify",
         category="Experience",
-        metadata={"company": "Visionify Inc.", "role": "Software Engineer", "period": "September 2025 - Present"},
+        metadata={"company": "Visionify Inc.", "role": "Software Engineer (SDE-1)", "period": "September 2025 - Present"},
         content=(
-            "At Visionify Inc., Ayush architects and builds event-driven microservices serving "
-            "400K+ users with <50ms latency using Java, Spring Boot, and Apache Kafka. He designed "
-            "a Redis caching layer cutting database load by 60% and improving API response times by "
-            "3x. He implemented distributed event streaming pipelines processing 1M+ events/day for "
-            "real-time data ingestion across services. He owns end-to-end delivery of critical backend "
-            "modules from architecture through deployment and monitoring."
+            "At Visionify Inc., Ayush owns the event-driven alerting service that delivers real-time "
+            "workplace-safety notifications across Email, Microsoft Teams, and WhatsApp — processing "
+            "10K+ events per day with end-to-end API response times under 150ms and fault-tolerant "
+            "routing through peak bursts. He also built and deployed a cross-platform Electron "
+            "application on edge devices surfacing live system health and camera telemetry, "
+            "accelerating incident detection and resolution."
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="exp-visionify-palletvision",
+        category="Experience",
+        metadata={"company": "Visionify Inc.", "project": "PalletVision"},
+        content=(
+            "At Visionify, Ayush is building PalletVision end-to-end with full ownership of the "
+            "computer-vision detection model, the backend services, and the frontend. PalletVision "
+            "is a computer-vision product for the pallet manufacturing industry that tracks pallets "
+            "being built and dismantled in real time, generating productivity, grading, and "
+            "dimensional analytics for pallet manufacturing teams."
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="exp-visionify-ergovision",
+        category="Experience",
+        metadata={"company": "Visionify Inc.", "project": "ErgoVision"},
+        content=(
+            "At Visionify, Ayush built ErgoVision, a mobile computer-vision app that analyzes worker "
+            "body posture in real time and uses GenAI to deliver personalized ergonomic improvement "
+            "recommendations."
         ),
     ))
     chunks.append(KnowledgeChunk(
         id="exp-eventstrat",
         category="Experience",
-        metadata={"company": "EventStrat", "role": "Software Developer (SDE 1)", "period": "February 2025 - September 2025"},
+        metadata={"company": "EventStrat", "role": "Software Engineer (SDE-1)", "period": "February 2025 - August 2025"},
         content=(
-            "At EventStrat, Ayush built the backend architecture for an AI-powered event "
-            "infrastructure platform from the ground up using Java and Spring Boot. He designed "
-            "scalable microservices handling event websites, registrations, and real-time analytics "
-            "for large-scale enterprise events. He implemented Kafka event pipelines ensuring reliable, "
-            "fault-tolerant data ingestion. He worked directly with product and design teams in a "
-            "fast-paced startup, shipping features quickly and owning outcomes."
+            "At EventStrat, Ayush architected backend microservices for a global event-CRM platform "
+            "supporting 100K+ concurrent users across international events. He constructed a "
+            "fault-tolerant bulk data-ingestion pipeline (50K+ rows per file, 2K+ files per batch) "
+            "with schema validation and automatic retries. He built exhibitor payment workflows "
+            "supporting multi-installment plans, event-specific tax calculation, and automated payment "
+            "reminders. He enabled real-time notifications and attendee tracking with a distributed, "
+            "event-driven architecture on Kafka and Redis."
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="exp-sneaco",
+        category="Experience",
+        metadata={"company": "Sneaco.in", "role": "Software Developer Intern", "period": "February 2024 - July 2024"},
+        content=(
+            "At Sneaco.in, Ayush built a location-aware laundromat discovery Flutter mobile application "
+            "single-handedly, enabling service discovery within a 5 km radius for doorstep pickup and "
+            "delivery. He reduced backend request latency by 30% by introducing in-memory caching and "
+            "optimizing REST endpoints. He integrated payment gateways, built auth services, and designed "
+            "an order scheduling system for pickup and delivery logistics."
         ),
     ))
     chunks.append(KnowledgeChunk(
         id="exp-visanka",
         category="Experience",
-        metadata={"company": "Visanka Technology", "role": "Backend Developer", "period": "December 2023 - August 2025"},
+        metadata={"company": "Visanka Technology", "role": "Backend Developer", "period": "December 2023 - January 2024"},
         content=(
             "At Visanka Technology, Ayush led end-to-end backend development of a real-time "
             "cross-platform chat application from database schema design to API deployment. He built "
@@ -156,24 +193,27 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="skills-languages",
         category="Skills",
         content=(
-            "Ayush Aryan works with these languages and databases: Java, C, Python, Dart/Flutter, "
-            "HTML5, CSS3, MySQL, Firebase, MongoDB, Redis, and Apache Kafka."
+            "Ayush Aryan works with these languages and databases: Java, C, Python, SQL, Dart/Flutter, "
+            "HTML5, CSS3, MySQL, Firebase, MongoDB, Elasticsearch, Redis, and Apache Kafka."
         ),
     ))
     chunks.append(KnowledgeChunk(
         id="skills-frameworks",
         category="Skills",
         content=(
-            "Ayush uses these frameworks and libraries: Spring Boot, Node.js, OpenCV, and Scikit-learn."
+            "Ayush uses these frameworks, libraries, and infrastructure: Spring Boot, Node.js, gRPC, "
+            "WebSockets, Hibernate/JPA, Docker, AWS (EC2, S3), Jenkins CI/CD, Spring Cloud Gateway, "
+            "Eureka, OpenFeign, Resilience4j, Prometheus, Grafana, OpenCV, and Scikit-learn."
         ),
     ))
     chunks.append(KnowledgeChunk(
         id="skills-aiml",
         category="Skills",
         content=(
-            "Ayush's AI and Machine Learning expertise includes: PyTorch, TensorFlow, LangChain, "
-            "Hugging Face, RAG (Retrieval-Augmented Generation), LLMs (Large Language Models), "
-            "OpenAI API, Natural Language Processing, and Deep Learning."
+            "Ayush's AI and Machine Learning expertise includes: Computer Vision (real-time detection "
+            "models in production at Visionify), RAG (Retrieval-Augmented Generation), LLM integration, "
+            "LangChain4j, embeddings and vector search (Cloudflare Workers AI), PyTorch, TensorFlow, "
+            "LangChain, Hugging Face, OpenAI API, Natural Language Processing, and Deep Learning."
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -198,13 +238,35 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
 
     # === Projects ===
     chunks.append(KnowledgeChunk(
+        id="project-ai-portfolio",
+        category="Projects",
+        content=(
+            "Ayush built the AI Portfolio Assistant — this very portfolio site with an integrated "
+            "RAG chatbot that answers recruiter questions about his work. It retrieves over embedded "
+            "resume and project documents using Cloudflare Workers AI embeddings and vector similarity "
+            "search, deployed on a zero-cost serverless stack with Vercel and Cloudflare Workers. "
+            "GitHub: https://github.com/ayusharyan1309/portfolio. "
+            "Live: https://ayush-aryan1309-portfolio.vercel.app"
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
+        id="project-ltxgo",
+        category="Projects",
+        content=(
+            "Ayush built the LTXGO Ride Operations Platform — backend services for booking, dispatch, "
+            "and multi-vehicle ride orchestration using Spring Boot, MySQL, JPA/Hibernate, and Liquibase. "
+            "It features real-time ride tracking and notifications via WebSocket, Firebase FCM, and "
+            "Redis-backed asynchronous workflows, with Flutter mobile and React CRM clients."
+        ),
+    ))
+    chunks.append(KnowledgeChunk(
         id="project-microservices-ecommerce",
         category="Projects",
         content=(
             "Ayush built a Microservices E-Commerce backend using Spring Boot 3.3. Features three "
             "independent services — product (MongoDB), order (MySQL), and inventory (MySQL) — with "
             "REST APIs, DTO patterns, JPA/Hibernate, and Testcontainers integration testing. "
-            "GitHub: https://github.com/ayusharyan13/microservices-based-E-Commerce-app"
+            "GitHub: https://github.com/ayusharyan1309/microservices-based-E-Commerce-app"
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -214,7 +276,7 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
             "Ayush built a full-featured real-time Chat App Backend with Spring Boot 3.5 and Java 17 "
             "featuring Firebase authentication, WebSocket (STOMP over SockJS) messaging, Apache Kafka "
             "event-driven architecture, MySQL with Liquibase migrations, and AWS S3 integration. "
-            "GitHub: https://github.com/ayusharyan13/chat-app-backend"
+            "GitHub: https://github.com/ayusharyan1309/chat-app-backend"
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -233,7 +295,7 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
             "Ayush built a Wellness App Backend with Spring Boot 3.3 and Java 17. Features appointment "
             "booking with real-time slot management (Redis), blog system with image uploads (Cloudinary), "
             "JWT authentication, Kafka-powered notifications, MySQL persistence, and Docker containerization. "
-            "GitHub: https://github.com/ayusharyan13/wellness-app-backend"
+            "GitHub: https://github.com/ayusharyan1309/wellness-app-backend"
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -243,7 +305,7 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
             "Ayush built a Sentiment Analysis system — a sentiment-based product recommendation system "
             "with Python and Flask. Uses TF-IDF vectorization and XGBoost for review sentiment "
             "classification, SMOTE for class imbalance handling, and collaborative filtering for "
-            "personalized product recommendations. GitHub: https://github.com/ayusharyan13/Sentiment-Analysis"
+            "personalized product recommendations. GitHub: https://github.com/ayusharyan1309/Sentiment-Analysis"
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -261,7 +323,7 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         content=(
             "Ayush built an E-Commerce App — a full-stack marketplace app built with Flutter, "
             "Node.js, and MongoDB with REST APIs, user authentication, and product management. "
-            "GitHub: https://github.com/ayusharyan13/E-CommerceApp"
+            "GitHub: https://github.com/ayusharyan1309/E-CommerceApp"
         ),
     ))
 
@@ -281,7 +343,7 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         category="Contact",
         content=(
         "Email: ayusharyan1309@gmail.com. Phone: +91 8340646275. Location: Hyderabad, Telangana, "
-        "India. LinkedIn: https://www.linkedin.com/in/ayusharyan1309/. GitHub: https://github.com/ayusharyan13. "
+        "India. LinkedIn: https://www.linkedin.com/in/ayusharyan1309/. GitHub: https://github.com/ayusharyan1309. "
         "LeetCode: https://leetcode.com/u/ayusharyan1309/. "
         "GeeksforGeeks: https://auth.geeksforgeeks.org/user/ayusharyan1309/practice."
         ),
@@ -305,8 +367,9 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="impact-stats",
         category="Impact",
         content=(
-            "Ayush's impact metrics: 400K+ users served, 3+ years building products, 4 apps shipped "
-            "to production, and 3+ years of Java/Spring Boot experience."
+            "Ayush's impact metrics: event-driven microservices for platforms supporting 100K+ "
+            "concurrent users, 10K+ events processed daily, 4 apps shipped to production, 1.5+ years "
+            "of full-time SDE experience, and 3+ years building products."
         ),
     ))
 
