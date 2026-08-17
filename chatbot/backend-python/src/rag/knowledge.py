@@ -133,8 +133,8 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         metadata={"company": "Visionify Inc.", "project": "ErgoVision"},
         content=(
             "At Visionify, Ayush built ErgoVision, a mobile computer-vision app that analyzes worker "
-            "body posture in real time and uses GenAI to deliver personalized ergonomic improvement "
-            "recommendations."
+            "body posture in real time using MediaPipe and uses GenAI to deliver personalized "
+            "ergonomic improvement recommendations."
         ),
     ))
     chunks.append(KnowledgeChunk(
@@ -210,10 +210,11 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="skills-aiml",
         category="Skills",
         content=(
-            "Ayush's AI and Machine Learning expertise includes: Computer Vision (real-time detection "
-            "models in production at Visionify), RAG (Retrieval-Augmented Generation), LLM integration, "
-            "LangChain4j, embeddings and vector search (Cloudflare Workers AI), PyTorch, TensorFlow, "
-            "LangChain, Hugging Face, OpenAI API, Natural Language Processing, and Deep Learning."
+            "Ayush's AI and Machine Learning expertise includes: Computer Vision with MediaPipe "
+            "(real-time models in production at Visionify), RAG (Retrieval-Augmented Generation), "
+            "LLM integration, LangChain4j, embeddings and vector search (Cloudflare Workers AI), "
+            "PyTorch, TensorFlow, LangChain, Hugging Face, OpenAI API, Natural Language Processing, "
+            "and Deep Learning."
         ),
     ))
     chunks.append(KnowledgeChunk(

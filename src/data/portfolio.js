@@ -81,7 +81,7 @@ export const personalInfo = {
     'Docker', 'AWS (EC2, S3)', 'Jenkins (CI/CD)',
     'Distributed Systems', 'System Design', 'Event-Driven Architecture',
     'RAG (Retrieval-Augmented Generation)', 'LLMs', 'LangChain4j',
-    'Computer Vision', 'Machine Learning', 'Deep Learning', 'Natural Language Processing',
+    'Computer Vision', 'MediaPipe', 'Machine Learning', 'Deep Learning', 'Natural Language Processing',
     'PyTorch', 'Elasticsearch', 'REST API Design', 'WebSocket', 'MongoDB', 'Flutter',
     'Product Building', 'High-Impact Engineering', 'Cloud Architecture',
   ],
@@ -286,6 +286,7 @@ export const personalInfo = {
     aiBadges: [
       'RAG (Retrieval-Augmented Generation)',
       'LLMs (Large Language Models)',
+      'Computer Vision (MediaPipe)',
       'OpenAI API',
       'Natural Language Processing',
       'Deep Learning',
@@ -367,7 +368,7 @@ export const seoJsonLd = {
       knowsAbout: [
         'Java', 'Spring Boot', 'Microservices', 'Apache Kafka', 'Redis',
         'Backend Engineering', 'Distributed Systems', 'System Design',
-        'Event-Driven Architecture', 'gRPC', 'Computer Vision', 'Elasticsearch',
+        'Event-Driven Architecture', 'gRPC', 'Computer Vision', 'MediaPipe', 'Elasticsearch',
         'Machine Learning', 'Deep Learning',
         'Natural Language Processing', 'RAG (Retrieval-Augmented Generation)',
         'Large Language Models', 'LangChain', 'Hugging Face', 'PyTorch',
@@ -451,7 +452,7 @@ export const faqSchema = {
       name: 'What technologies does Ayush Aryan work with?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, gRPC, Computer Vision, GenAI (RAG, LLMs, LangChain4j), Docker, AWS, Elasticsearch, Distributed Systems, System Design, MySQL, MongoDB, WebSocket, Flutter.',
+        text: 'Java, Spring Boot, Microservices, Apache Kafka, Redis, gRPC, Computer Vision (MediaPipe), GenAI (RAG, LLMs, LangChain4j), Docker, AWS, Elasticsearch, Distributed Systems, System Design, MySQL, MongoDB, WebSocket, Flutter.',
       },
     },
     {

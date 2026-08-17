@@ -9,7 +9,7 @@ binding = "AI"
 # Environment variables (non-secret config)
 [vars]
 LLM_PROVIDER = "groq"
-GROQ_MODEL = "llama-3.1-8b-instant"
+GROQ_MODEL = "openai/gpt-oss-20b"
 MAX_TOKENS = "512"
 TEMPERATURE = "0.7"
 # PYTHON_BACKEND_URL = "https://your-app.onrender.com"  # Set this to your Render URL after deploying
