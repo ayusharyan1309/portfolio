@@ -14,9 +14,11 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
 import ResumeSelector from './components/ResumeSelector'
+import SecretVault from './components/SecretVault'
 
 export default function App() {
   const [showResumeModal, setShowResumeModal] = useState(false)
+  const [showVault, setShowVault] = useState(false)
   const allSchemas = [seoJsonLd, faqSchema]
 
   return (
@@ -93,7 +95,7 @@ export default function App() {
         </nav>
       </div>
 
-      <Navbar onOpenResume={() => setShowResumeModal(true)} />
+      <Navbar onOpenResume={() => setShowResumeModal(true)} onOpenVault={() => setShowVault(true)} />
       <main>
         <Hero onOpenResume={() => setShowResumeModal(true)} />
         <About />
@@ -116,6 +118,9 @@ export default function App() {
         isOpen={showResumeModal}
         onClose={() => setShowResumeModal(false)}
       />
+
+      {/* Hidden encrypted notes (5 taps on the navbar brand) */}
+      <SecretVault isOpen={showVault} onClose={() => setShowVault(false)} />
     </div>
     </>
   )

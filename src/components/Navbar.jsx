@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { personalInfo } from '../data/portfolio'
 
 const navItems = [
@@ -10,10 +10,12 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export default function Navbar({ onOpenResume }) {
+export default function Navbar({ onOpenResume, onOpenVault }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const brandClicks = useRef(0)
+  const lastBrandClick = useRef(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +33,18 @@ export default function Navbar({ onOpenResume }) {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleBrandClick = (e) => {
+    handleNavClick(e, '#hero')
+    const now = Date.now()
+    if (now - lastBrandClick.current > 2500) brandClicks.current = 0
+    lastBrandClick.current = now
+    brandClicks.current += 1
+    if (brandClicks.current >= 5) {
+      brandClicks.current = 0
+      onOpenVault?.()
+    }
+  }
 
   const handleNavClick = (e, href) => {
     e.preventDefault()
@@ -52,8 +66,8 @@ export default function Navbar({ onOpenResume }) {
         <div className="flex items-center justify-between h-16 sm:h-20">
           <a
             href="#hero"
-            onClick={(e) => handleNavClick(e, '#hero')}
-            className="text-xl sm:text-2xl font-bold text-white hover:text-[#12d640] transition-colors"
+            onClick={handleBrandClick}
+            className="text-xl sm:text-2xl font-bold text-white hover:text-[#12d640] transition-colors select-none"
           >
             {personalInfo.name.split(' ')[0]}
             <span className="text-[#12d640]">.</span>

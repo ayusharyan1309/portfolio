@@ -34,3 +34,6 @@ build/
 *.log
 npm-debug.log*
 .vercel
+
+# Personal job-search docs — never commit
+job-search/
