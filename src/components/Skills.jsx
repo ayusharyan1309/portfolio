@@ -1,6 +1,6 @@
 import { personalInfo } from '../data/portfolio'
 
-function SkillCategory({ title, items, children }) {
+function SkillCategory({ title, items, badges }) {
   return (
     <div className="glass-card rounded-xl p-6 sm:p-8">
       <h3 className="text-base font-semibold text-white mb-5">{title}</h3>
@@ -10,12 +10,17 @@ function SkillCategory({ title, items, children }) {
             key={item.name}
             src={item.logo}
             alt={`${item.name} — Technology used by Ayush Aryan`}
+            title={item.name}
             className="h-10 sm:h-12 object-contain opacity-80 hover:opacity-100 transition-opacity"
             loading="lazy"
             itemProp="knowsAbout"
           />
         ))}
-        {children}
+        {badges?.map((badge) => (
+          <span key={badge} className="skill-tag" itemProp="knowsAbout">
+            {badge}
+          </span>
+        ))}
       </div>
     </div>
   )
@@ -30,15 +35,19 @@ export default function Skills() {
         <h2 className="section-title">Skills & Technologies</h2>
 
         <div className="space-y-5">
-          <SkillCategory title="Languages & Databases" items={skills.languages} />
-          <SkillCategory title="Frameworks & Libraries" items={skills.frameworks} />
-          <SkillCategory title="AI & Machine Learning" items={skills.aiMl}>
-            {skills.aiBadges.map((badge) => (
-              <span key={badge} className="skill-tag" itemProp="knowsAbout">
-                {badge}
-              </span>
-            ))}
-          </SkillCategory>
+          <SkillCategory
+            title="Backend & Distributed Systems"
+            items={skills.backend}
+            badges={skills.backendBadges}
+          />
+          <SkillCategory
+            title="Data, Messaging & Caching"
+            items={skills.data}
+            badges={skills.dataBadges}
+          />
+          <SkillCategory title="Cloud & DevOps" items={skills.cloud} badges={skills.cloudBadges} />
+          <SkillCategory title="Languages" items={skills.languages} />
+          <SkillCategory title="AI & Machine Learning" items={skills.aiMl} badges={skills.aiBadges} />
           <SkillCategory title="Tools & Platforms" items={skills.tools} />
         </div>
       </div>
