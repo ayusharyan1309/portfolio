@@ -16,17 +16,17 @@
 
 ## ✨ Features
 
-- **Hero Section** — Animated typing effect, smooth scroll navigation, responsive design
-- **About** — Bio, impact stats (100K+ concurrent users, 4 apps shipped), "Why Hire Me" cards
-- **Experience** — Timeline with roles at Visionify, EventStrat, Sneaco, and Zolatte
-- **Projects** — 9 project cards with tech stack, GitHub links, and external details
-- **Skills** — Visual grid with tech badges (Java, Spring Boot, Kafka, Redis, AI/ML, etc.)
-- **Contact** — Location, email, phone, social links
-- **AI Chatbot** — Floating RAG chatbot that answers questions about Ayush using LLM + embeddings
-- **Resume Admin** — Easter egg (click avatar "A" 5 times) to upload/manage resume PDFs
-- **Resume Selector** — Modal to view/download resumes (Google Drive links for production, local uploads for dev)
-- **SEO** — Full JSON-LD schemas (Person, WebSite, ProfilePage, FAQ), semantic HTML, breadcrumbs
-- **Responsive** — Mobile-first design with dark theme
+Positioned for **Java backend + GenAI** roles and built to be scanned in under a minute.
+
+- **API console hero** — the hero types out `GET /api/me` and returns a JSON summary (role, focus, experience, location, contact). `GET /api/stack` lists the stack; `POST /api/ask` hands a question to the RAG assistant.
+- **Two-track colour coding** — amber marks Java/backend work, lilac marks AI/GenAI work, across experience bullets, projects and skills.
+- **Systems** — simplified pipeline views of the Visionify alerting service and this site's RAG assistant.
+- **Projects** — filterable by track, ordered by relevance to backend and GenAI roles.
+- **AI chatbot** — floating RAG assistant; any section can open it via `openChat()` in `src/components/Icons.jsx`.
+- **Resume admin** — click the chatbot avatar "A" 5 times to upload/manage resume PDFs (local Python backend).
+- **SEO** — JSON-LD Person / WebSite / ProfilePage schema; reduced-motion and keyboard focus supported.
+
+All page content lives in `src/data/portfolio.js`.
 
 ## 🏗 Architecture
 
@@ -120,11 +120,11 @@ Open the chatbot avatar menu (click "A" 5 times) to upload and manage resumes.
 portfolio/
 ├── src/                    # React frontend
 │   ├── components/         # All React components
-│   │   ├── Hero.jsx        # Landing section with animation
+│   │   ├── Hero.jsx        # Name, positioning, CTAs, proof numbers
 │   │   ├── Navbar.jsx      # Fixed navigation bar
+│   │   ├── ApiConsole.jsx  # Hero API console
 │   │   ├── Chatbot.jsx     # Floating AI chatbot + resume admin
-│   │   ├── ResumeSelector.jsx  # Resume download modal
-│   │   ├── About.jsx, Experience.jsx, Projects.jsx ...etc
+│   │   ├── Experience.jsx, Systems.jsx, Projects.jsx, Skills.jsx ...etc
 │   ├── data/
 │   │   └── portfolio.js    # All portfolio content & SEO data
 │   ├── index.css           # Global styles + Tailwind

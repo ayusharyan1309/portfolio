@@ -1,76 +1,59 @@
-import { personalInfo } from '../data/portfolio'
+import { personalInfo, tracks } from '../data/portfolio'
+
+export function TrackLegend() {
+  return (
+    <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+      {['backend', 'ai'].map((key) => (
+        <span key={key} className={`track-${key} inline-flex items-center gap-2`}>
+          <span className="h-2.5 w-2.5 rounded-sm bg-[var(--track)]" aria-hidden="true" />
+          {tracks[key].label}
+        </span>
+      ))}
+    </div>
+  )
+}
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-20 sm:py-28">
+    <section id="experience" className="py-14 sm:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 className="section-title">Experience</h2>
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <h2 className="heading">Experience</h2>
+          <TrackLegend />
+        </div>
 
-        <p className="text-gray-400 mb-10 -mt-4 max-w-3xl">
-          I've shipped products across startups — owning backend architecture, infrastructure, and
-          delivery end-to-end. I <span className="text-[#12d640] font-medium">ship fast</span>,{' '}
-          <span className="text-[#12d640] font-medium">build scalable</span> systems, and{' '}
-          <span className="text-[#12d640] font-medium">own outcomes</span>.{' '}
-          <span className="text-xs text-gray-500 tracking-wider">
-            #ShipFast #BuildScalable #CrackedEngineer #Java #SpringBoot #Microservices #Kafka #Redis #AI #RAG #LLM #BackendEngineering #DistributedSystems #Hyderabad
-          </span>
-        </p>
+        <ol className="border-t border-line">
+          {personalInfo.experience.map((exp) => (
+            <li key={exp.company} className="grid grid-cols-1 md:grid-cols-[12rem_1fr] gap-x-10 gap-y-3 py-8 border-b border-line">
+              <p className="text-sm text-muted tabular-nums md:pt-1.5">{exp.period}</p>
 
-        <div className="space-y-6">
-          {personalInfo.experience.map((exp, i) => (
-            <div
-              key={i}
-              className="glass-card rounded-xl p-6 sm:p-8 relative group"
-              itemScope
-              itemType="https://schema.org/OrganizationRole"
-            >
-              <meta itemProp="roleName" content={exp.role} />
-              <meta itemProp="startDate" content={exp.period.split(' - ')[0]} />
-              {exp.period.includes('Present') ? (
-                <meta itemProp="endDate" content={new Date().toISOString().split('T')[0]} />
-              ) : (
-                <meta itemProp="endDate" content={exp.period.split(' - ')[1]} />
-              )}
-
-              <div className="grid md:grid-cols-4 gap-4 md:gap-6">
-                {/* Left: Company & period */}
-                <div className="md:col-span-1">
-                  <h3 className="text-lg font-bold text-[#12d640]">
-                    <a href={exp.url} target="_blank" rel="noopener noreferrer" className="hover:underline" itemProp="affiliation">
+              <div>
+                <h3 className="font-display text-2xl font-semibold text-text">
+                  {exp.url ? (
+                    <a href={exp.url} target="_blank" rel="noopener noreferrer" className="hover:underline underline-offset-4 decoration-line">
                       {exp.company}
                     </a>
-                  </h3>
-                  <p className="text-sm text-gray-400 mt-1">{exp.period}</p>
-                  <p className="text-sm text-gray-400 mt-2 font-medium">{exp.role}</p>
+                  ) : (
+                    exp.company
+                  )}
+                </h3>
+                <p className="mt-0.5 text-soft">{exp.role}</p>
 
-                  {/* Visible skill tags per role */}
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {exp.tech.split(', ').map((tech) => (
-                      <span key={tech} className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/10">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <ul className="mt-5 space-y-3 max-w-[75ch]">
+                  {exp.highlights.map((h, i) => (
+                    <li key={i} className={`track-${h.track} relative pl-5 text-[0.9375rem] leading-relaxed text-soft`}>
+                      <span className="absolute left-0 top-[0.6em] h-2 w-2 rounded-sm bg-[var(--track)]" aria-hidden="true" />
+                      <span className="sr-only">{tracks[h.track].label}: </span>
+                      <span className="[&_strong]:text-text [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: h.text }} />
+                    </li>
+                  ))}
+                </ul>
 
-                {/* Right: Highlights */}
-                <div className="md:col-span-3">
-                  <ul className="space-y-3">
-                    {exp.highlights.map((item, j) => (
-                      <li
-                        key={j}
-                        className="flex items-start gap-3 text-sm text-gray-300 leading-relaxed"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#12d640] mt-2 shrink-0" />
-                        <span dangerouslySetInnerHTML={{ __html: item }} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className="mt-5 text-sm text-muted">{exp.stack}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )

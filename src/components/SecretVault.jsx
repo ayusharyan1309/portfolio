@@ -165,7 +165,7 @@ export default function SecretVault({ isOpen, onClose }) {
       onClick={onClose}
     >
       <div
-        className="bg-[#0d0f24] w-full h-full sm:h-[85vh] sm:max-w-3xl sm:rounded-2xl border border-white/10 flex flex-col overflow-hidden"
+        className="bg-surface w-full h-full sm:h-[85vh] sm:max-w-3xl sm:rounded-2xl border border-white/10 flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-4 sm:px-6 h-14 border-b border-white/10 shrink-0">
@@ -198,7 +198,7 @@ export default function SecretVault({ isOpen, onClose }) {
                   onClick={() => setActive(idx)}
                   className={`px-3 py-2 text-xs font-medium rounded-t-lg whitespace-nowrap capitalize transition-colors ${
                     idx === active
-                      ? 'text-[#12d640] bg-white/5 border-b-2 border-[#12d640]'
+                      ? 'text-amber bg-white/5 border-b-2 border-amber'
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
@@ -218,7 +218,7 @@ export default function SecretVault({ isOpen, onClose }) {
                 <p className="text-gray-400">Couldn&apos;t load the notes.</p>
                 <button
                   onClick={load}
-                  className="px-5 py-2 text-sm font-semibold text-[#0a0a1a] bg-[#12d640] rounded-lg hover:bg-[#12d640]/90 transition-all"
+                  className="px-5 py-2 text-sm font-semibold text-bg bg-amber rounded-lg hover:bg-amber/90 transition-all"
                 >
                   Retry
                 </button>
@@ -232,15 +232,15 @@ export default function SecretVault({ isOpen, onClose }) {
         <style>{`
           .vault-md h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 1.2em 0 0.5em; }
           .vault-md h2 { font-size: 1.2rem; font-weight: 700; color: #fff; margin: 1.2em 0 0.4em; }
-          .vault-md h3 { font-size: 1.05rem; font-weight: 600; color: #12d640; margin: 1.1em 0 0.4em; }
+          .vault-md h3 { font-size: 1.05rem; font-weight: 600; color: var(--color-amber); margin: 1.1em 0 0.4em; }
           .vault-md h4 { font-size: 1rem; font-weight: 600; color: #fff; margin: 1em 0 0.3em; }
           .vault-md h1:first-child, .vault-md h2:first-child { margin-top: 0; }
           .vault-md p { margin: 0.6em 0; }
-          .vault-md a { color: #12d640; text-decoration: underline; }
+          .vault-md a { color: var(--color-amber); text-decoration: underline; }
           .vault-md code { background: rgba(255,255,255,0.08); padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.88em; }
           .vault-md pre { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.8em 1em; overflow-x: auto; margin: 0.8em 0; }
           .vault-md pre code { background: none; padding: 0; }
-          .vault-md blockquote { border-left: 3px solid #12d640; background: rgba(18,214,64,0.06); padding: 0.5em 1em; margin: 0.8em 0; border-radius: 0 8px 8px 0; }
+          .vault-md blockquote { border-left: 3px solid var(--color-amber); background: rgb(242 169 59 / 0.06); padding: 0.5em 1em; margin: 0.8em 0; border-radius: 0 8px 8px 0; }
           .vault-md blockquote p { margin: 0.4em 0; }
           .vault-md ul, .vault-md ol { margin: 0.6em 0; padding-left: 1.4em; }
           .vault-md ul { list-style: disc; }

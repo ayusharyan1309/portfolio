@@ -82,6 +82,19 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, adminOpen])
 
+  // Other sections open the chat via openChat() in Icons.jsx. The ref keeps the
+  // listener pointed at the latest sendMessage closure.
+  const sendRef = useRef(null)
+  useEffect(() => {
+    const onOpen = (e) => {
+      setIsOpen(true)
+      const question = e.detail?.question
+      if (question) sendRef.current?.(question)
+    }
+    window.addEventListener('chatbot:open', onOpen)
+    return () => window.removeEventListener('chatbot:open', onOpen)
+  }, [])
+
   // ─── Avatar click handler (easter egg trigger) ───
   const handleAvatarClick = () => {
     const newCount = clickCount + 1
@@ -206,8 +219,8 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
   }
 
   // ─── Chat logic ───
-  const sendMessage = async () => {
-    const trimmed = input.trim()
+  const sendMessage = async (text) => {
+    const trimmed = (typeof text === 'string' ? text : input).trim()
     if (!trimmed || isLoading) return
 
     setInput('')
@@ -309,6 +322,8 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
     sendMessage()
   }
 
+  sendRef.current = sendMessage
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -333,7 +348,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 ${
           isOpen
             ? 'bg-gray-700 rotate-45 scale-90'
-            : 'bg-[#12d640] hover:bg-[#12d640]/90 hover:scale-105'
+            : 'bg-lilac hover:bg-lilac/90 hover:scale-105'
         }`}
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
         title="Ask about Ayush"
@@ -343,7 +358,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
             <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0a0a1a]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-bg">
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
           </svg>
         )}
@@ -351,7 +366,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
 
       {/* Chat window */}
       <div
-        className={`absolute bottom-16 right-0 w-[360px] sm:w-[400px] max-w-[calc(100vw-48px)] bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl shadow-black/40 overflow-hidden transition-all duration-300 origin-bottom-right ${
+        className={`absolute bottom-16 right-0 w-[360px] sm:w-[400px] max-w-[calc(100vw-48px)] bg-surface border border-white/10 rounded-2xl shadow-2xl shadow-black/40 overflow-hidden transition-all duration-300 origin-bottom-right ${
           isOpen
             ? 'opacity-100 scale-100 pointer-events-auto'
             : 'opacity-0 scale-95 pointer-events-none'
@@ -359,11 +374,11 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
         style={{ maxHeight: 'min(600px, calc(100vh - 120px))' }}
       >
         {/* Header — click avatar 5x for secret admin panel */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0a0a1a]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-bg">
           <div className="flex items-center gap-3">
             <button
               onClick={handleAvatarClick}
-              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#12d640] to-[#0ea5e9] flex items-center justify-center text-sm font-bold text-[#0a0a1a] cursor-pointer hover:ring-2 hover:ring-[#12d640]/50 transition-all select-none"
+              className="w-8 h-8 rounded-full bg-lilac flex items-center justify-center text-sm font-bold text-bg cursor-pointer hover:ring-2 hover:ring-lilac/50 transition-all select-none"
               title={adminOpen ? 'Close admin panel' : `${5 - clickCount} clicks left for secret menu`}
             >
               A
@@ -416,7 +431,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#12d640] text-[#0a0a1a] rounded-br-md'
+                        ? 'bg-lilac text-bg rounded-br-md'
                         : 'bg-white/5 text-gray-200 rounded-bl-md border border-white/5'
                     }`}
                   >
@@ -442,7 +457,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSubmit} className="border-t border-white/10 p-3 bg-[#0a0a1a]">
+            <form onSubmit={handleSubmit} className="border-t border-white/10 p-3 bg-bg">
               <div className="flex items-center gap-2">
                 <input
                   ref={inputRef}
@@ -452,12 +467,12 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about Ayush..."
                   disabled={isLoading}
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 disabled:opacity-50 focus:outline-none focus:border-[#12d640]/50 focus:ring-1 focus:ring-[#12d640]/20 transition-all"
+                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 disabled:opacity-50 focus:outline-none focus:border-lilac/50 focus:ring-1 focus:ring-lilac/20 transition-all"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="w-10 h-10 rounded-xl bg-[#12d640] text-[#0a0a1a] flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#12d640]/90 transition-all shrink-0"
+                  className="w-10 h-10 rounded-xl bg-lilac text-bg flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-lilac/90 transition-all shrink-0"
                   aria-label="Send message"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -495,7 +510,7 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
     return (
       <div className="flex items-center justify-center h-[400px]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-[#12d640] border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-lilac border-t-transparent rounded-full animate-spin" />
           <p className="text-sm text-gray-500">Loading profiles...</p>
         </div>
       </div>
@@ -545,7 +560,7 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
               key={p.id}
               className={`rounded-xl border transition-all ${
                 p.active
-                  ? 'border-[#12d640]/40 bg-[#12d640]/5'
+                  ? 'border-lilac/40 bg-lilac/5'
                   : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.04]'
               } ${isUploading ? 'opacity-70 pointer-events-none' : ''}`}
             >
@@ -578,7 +593,7 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
                 <button
                   onClick={() => onUpload(p.id)}
                   disabled={isUploading}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium bg-[#12d640]/10 text-[#12d640] border border-[#12d640]/20 hover:bg-[#12d640]/20 hover:border-[#12d640]/30 transition-all disabled:opacity-40"
+                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium bg-lilac/10 text-lilac border border-lilac/20 hover:bg-lilac/20 hover:border-lilac/30 transition-all disabled:opacity-40"
                 >
                   {isUploading ? (
                     <><svg className="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" strokeDasharray="32" strokeLinecap="round" /></svg> Uploading...</>
@@ -599,7 +614,7 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
 
                 {/* Active badge */}
                 {p.active && (
-                  <span className="px-3 py-2 rounded-lg text-[11px] font-bold text-[#12d640] bg-[#12d640]/10 border border-[#12d640]/20 whitespace-nowrap">
+                  <span className="px-3 py-2 rounded-lg text-[11px] font-bold text-lilac bg-lilac/10 border border-lilac/20 whitespace-nowrap">
                     ACTIVE
                   </span>
                 )}
@@ -625,7 +640,7 @@ function ResumeAdminPanel({ profiles, uploading, adminMsg, onUpload, onActivate,
       {/* Footer hint */}
       <div className="mt-4 text-center">
         <p className="text-[10px] text-gray-600">
-          Click the avatar <span className="text-[#12d640]">A</span> 5 times to toggle this panel
+          Click the avatar <span className="text-lilac">A</span> 5 times to toggle this panel
         </p>
       </div>
     </div>

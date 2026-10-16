@@ -1,127 +1,44 @@
 import { useState } from 'react'
-import { seoJsonLd, faqSchema, personalInfo } from './data/portfolio'
+import { seoJsonLd } from './data/portfolio'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import About from './components/About'
-import ImpactStats from './components/ImpactStats'
-import WhyHireMe from './components/WhyHireMe'
-import CoreCompetencies from './components/CoreCompetencies'
-import Education from './components/Education'
 import Experience from './components/Experience'
+import Systems from './components/Systems'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
-import ResumeSelector from './components/ResumeSelector'
 import SecretVault from './components/SecretVault'
 
 export default function App() {
-  const [showResumeModal, setShowResumeModal] = useState(false)
   const [showVault, setShowVault] = useState(false)
-  const allSchemas = [seoJsonLd, faqSchema]
 
   return (
     <>
-      {/* Skip-to-content link for keyboard and screen reader users */}
       <a href="#hero" className="skip-nav">
         Skip to content
       </a>
 
-      <div className="min-h-screen bg-[#0a0a1a] text-gray-200" itemScope itemType="https://schema.org/ProfilePage">
-      {/* Schema.org JSON-LD - Person, WebSite, ProfilePage, FAQ */}
-      {allSchemas.map((schema, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(seoJsonLd) }} />
 
-      {/* Visible breadcrumbs for SEO + UX */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 hidden sm:block">
-        <nav aria-label="Breadcrumb">
-          <ol
-            className="flex items-center gap-2 text-sm text-gray-400"
-            itemScope
-            itemType="https://schema.org/BreadcrumbList"
-          >
-            <li
-              itemProp="itemListElement"
-              itemScope
-              itemType="https://schema.org/ListItem"
-              className="flex items-center gap-2"
-            >
-              <meta itemProp="position" content="1" />
-              <span itemProp="name" className="text-gray-300 font-medium">Home</span>
-            </li>
-            <span className="text-gray-600">/</span>
-            <li
-              itemProp="itemListElement"
-              itemScope
-              itemType="https://schema.org/ListItem"
-              className="flex items-center gap-2"
-            >
-              <meta itemProp="position" content="2" />
-              <a href="#about" itemProp="item" className="hover:text-[#12d640] transition-colors">
-                <span itemProp="name">About</span>
-              </a>
-            </li>
-            <span className="text-gray-600">/</span>
-            <li
-              itemProp="itemListElement"
-              itemScope
-              itemType="https://schema.org/ListItem"
-              className="flex items-center gap-2"
-            >
-              <meta itemProp="position" content="3" />
-              <a href="#experience" itemProp="item" className="hover:text-[#12d640] transition-colors">
-                <span itemProp="name">Experience</span>
-              </a>
-            </li>
-            <span className="text-gray-600">/</span>
-            <li
-              itemProp="itemListElement"
-              itemScope
-              itemType="https://schema.org/ListItem"
-              className="flex items-center gap-2"
-            >
-              <meta itemProp="position" content="4" />
-              <a href="#contact" itemProp="item" className="hover:text-[#12d640] transition-colors">
-                <span itemProp="name">Contact</span>
-              </a>
-            </li>
-          </ol>
-        </nav>
+      <div className="min-h-screen bg-bg text-text">
+        <Navbar onOpenVault={() => setShowVault(true)} />
+        <main>
+          <Hero />
+          <Experience />
+          <Systems />
+          <Projects />
+          <Skills />
+          <Contact />
+        </main>
+        <Footer />
+
+        <Chatbot />
+
+        {/* Hidden notes viewer (5 taps on the navbar name) */}
+        <SecretVault isOpen={showVault} onClose={() => setShowVault(false)} />
       </div>
-
-      <Navbar onOpenResume={() => setShowResumeModal(true)} onOpenVault={() => setShowVault(true)} />
-      <main>
-        <Hero onOpenResume={() => setShowResumeModal(true)} />
-        <About />
-        <ImpactStats />
-        <WhyHireMe />
-        <CoreCompetencies />
-        <Education />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
-
-      {/* Floating RAG Chatbot */}
-      <Chatbot />
-
-      {/* Resume Selector Modal */}
-      <ResumeSelector
-        isOpen={showResumeModal}
-        onClose={() => setShowResumeModal(false)}
-      />
-
-      {/* Hidden encrypted notes (5 taps on the navbar brand) */}
-      <SecretVault isOpen={showVault} onClose={() => setShowVault(false)} />
-    </div>
     </>
   )
 }
