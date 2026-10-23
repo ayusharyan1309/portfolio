@@ -123,10 +123,10 @@ async function parseGeminiStream(
             }
           }
         }
+        controller.close()
       } catch (err) {
         controller.error(err)
       } finally {
-        controller.close()
         reader.releaseLock()
       }
     },

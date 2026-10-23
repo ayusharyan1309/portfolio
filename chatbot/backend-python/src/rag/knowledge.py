@@ -52,16 +52,17 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="about-location",
         category="About",
         content=(
-        "Ayush Aryan is based in Hyderabad, Telangana, India. Born on 13 September 2002."
+        "Ayush Aryan is based in Hyderabad, Telangana, India."
         ),
     ))
     chunks.append(KnowledgeChunk(
         id="about-looking-for",
         category="About",
         content=(
-            "Ayush Aryan is looking for founders and engineering leaders who need a cracked "
-            "engineer to own backend architecture, ship rapidly, and build infrastructure that "
-            "scales. He is open to Software Engineer roles or early-stage founding engineer positions."
+            "Ayush Aryan is open to Java backend and GenAI engineering roles (SDE-1 / SDE-2): owning "
+            "event-driven services in Java, Spring Boot and Kafka, and shipping LLM and RAG features to "
+            "production. He is based in Hyderabad and open to Bengaluru, Gurugram, Noida, Pune or remote. "
+            "For notice period, compensation or interview scheduling, email him at ayusharyan1309@gmail.com."
         ),
     ))
 
@@ -219,8 +220,8 @@ def build_knowledge_base() -> list[KnowledgeChunk]:
         id="education-btech",
         category="Education",
         content=(
-            "Ayush Aryan earned a B.Tech in Data Science and Artificial Intelligence from BML Munjal "
-            "University (October 2021 - June 2025, Graduated). Relevant coursework: Machine Learning "
+            "Ayush Aryan earned a B.Tech in Computer Science with a specialization in Data Science from BML Munjal "
+            "University (August 2021 - May 2025, graduated). Relevant coursework: Machine Learning "
             "& Deep Learning, Natural Language Processing, Data Structures and Algorithms, Database "
             "Management Systems, and Operating Systems."
         ),

@@ -195,6 +195,7 @@ export default function ApiConsole() {
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                   placeholder="Ask anything about my work"
+                  maxLength={500}
                   className="flex-1 min-w-0 rounded-md border border-line bg-bg px-3 py-2 text-text placeholder:text-muted focus:outline-none focus:border-lilac"
                 />
                 <button type="submit" className="rounded-md bg-lilac px-3 py-2 font-sans font-semibold text-bg hover:bg-lilac/90 cursor-pointer">

@@ -51,7 +51,7 @@ class AppConfig:
         default_factory=lambda: os.getenv("GROQ_API_KEY", "")
     )
     groq_model: str = field(
-        default_factory=lambda: os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+        default_factory=lambda: os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
     )
 
     # OpenAI
@@ -91,7 +91,7 @@ class AppConfig:
         default_factory=lambda: int(os.getenv("MAX_TOKENS", "512"))
     )
     temperature: float = field(
-        default_factory=lambda: float(os.getenv("TEMPERATURE", "0.7"))
+        default_factory=lambda: float(os.getenv("TEMPERATURE", "0.3"))
     )
 
     # CORS

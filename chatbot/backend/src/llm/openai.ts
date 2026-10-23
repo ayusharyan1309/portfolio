@@ -67,8 +67,10 @@ export async function parseOpenAIStream(
     async start(controller) {
       let buffer = ''
 
+      // Close exactly once, after the loop: closing on [DONE] and again in a
+      // finally block threw, which errored the stream and dropped queued chunks.
       try {
-        while (true) {
+        read: while (true) {
           const { done, value } = await reader.read()
           if (done) break
 
@@ -80,10 +82,7 @@ export async function parseOpenAIStream(
             const trimmed = line.trim()
 
             // End of stream signal
-            if (trimmed === 'data: [DONE]') {
-              controller.close()
-              return
-            }
+            if (trimmed === 'data: [DONE]') break read
 
             // Data lines
             if (trimmed.startsWith('data: ')) {
@@ -99,10 +98,10 @@ export async function parseOpenAIStream(
             }
           }
         }
+        controller.close()
       } catch (err) {
         controller.error(err)
       } finally {
-        controller.close()
         reader.releaseLock()
       }
     },

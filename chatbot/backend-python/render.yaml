@@ -25,7 +25,7 @@ services:
       - key: LLM_PROVIDER
         value: "groq"
       - key: GROQ_MODEL
-        value: "llama-3.1-8b-instant"
+        value: "openai/gpt-oss-20b"
       # Set these secrets in Render Dashboard:
       # - GROQ_API_KEY
       # - UPLOAD_STORAGE_S3_ENDPOINT

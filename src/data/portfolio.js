@@ -234,7 +234,7 @@ export const personalInfo = {
 
   education: {
     school: 'BML Munjal University',
-    degree: 'B.Tech in Data Science and Artificial Intelligence',
+    degree: 'B.Tech in Computer Science with a specialization in Data Science',
     period: '2021 – 2025',
     coursework: ['Machine learning & deep learning', 'NLP', 'Data structures & algorithms', 'DBMS', 'Operating systems'],
   },

@@ -11,7 +11,7 @@ binding = "AI"
 LLM_PROVIDER = "groq"
 GROQ_MODEL = "openai/gpt-oss-20b"
 MAX_TOKENS = "512"
-TEMPERATURE = "0.7"
+TEMPERATURE = "0.3"
 # PYTHON_BACKEND_URL = "https://your-app.onrender.com"  # Set this to your Render URL after deploying
 ALLOWED_ORIGINS = "https://ayush-aryan1309-portfolio.vercel.app"
 

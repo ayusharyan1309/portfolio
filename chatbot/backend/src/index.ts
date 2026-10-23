@@ -11,8 +11,9 @@
 import { Router } from 'itty-router'
 import { getLLMConfig, Env, ChatMessage } from './config'
 import { LLMProviderFactory } from './llm/factory'
-import { runRAG } from './rag/pipeline'
+import { runRAG, SCOPE_REMINDER } from './rag/pipeline'
 import { buildKnowledgeBase } from './rag/knowledge'
+import { checkMessage, createOutputGuard, sanitizeHistory, REPLIES } from './rag/guard'
 
 // Initialize knowledge base at cold start
 // Embeddings are lazily initialized on first request
@@ -57,6 +58,26 @@ function corsHeaders(env: Env): Record<string, string> {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
   }
+}
+
+const SSE_HEADERS = {
+  'Content-Type': 'text/event-stream',
+  'Cache-Control': 'no-cache',
+  Connection: 'keep-alive',
+}
+
+const sseEvent = (data: Record<string, unknown>) => `data: ${JSON.stringify(data)}\n\n`
+
+/**
+ * A fixed answer in the same SSE shape as a streamed one, so the chat widget
+ * needs no special case. Used when the guard blocks a message before the LLM.
+ */
+function cannedReply(content: string, env: Env): Response {
+  const body =
+    sseEvent({ type: 'sources', sources: [] }) +
+    sseEvent({ type: 'content', content }) +
+    sseEvent({ type: 'done' })
+  return new Response(body, { headers: { ...SSE_HEADERS, ...corsHeaders(env) } })
 }
 
 /**
@@ -135,10 +156,10 @@ router.post('/api/chat', async (request: Request, env: Env) => {
   try {
     const body = (await request.json()) as {
       message: string
-      history?: Array<{ role: 'user' | 'assistant'; content: string }>
+      history?: unknown
     }
 
-    if (!body.message || typeof body.message !== 'string') {
+    if (!body.message || typeof body.message !== 'string' || !body.message.trim()) {
       return new Response(
         JSON.stringify({ error: 'Missing "message" field in request body' }),
         {
@@ -151,28 +172,24 @@ router.post('/api/chat', async (request: Request, env: Env) => {
       )
     }
 
+    const question = body.message.trim()
+
+    // Step 0: Off-topic, code and injection requests never reach the LLM
+    const blocked = checkMessage(question)
+    if (blocked) return cannedReply(REPLIES[blocked], env)
+
     // Step 1: Initialize embeddings (lazy) and run RAG
     const chunks = await getEmbeddedChunks(env)
-    const ragResult = await runRAG(body.message, env, chunks)
+    const ragResult = await runRAG(question, env, chunks)
 
-    // Step 2: Build messages array for LLM
+    // Step 2: Build messages array for LLM — system prompt, sanitized
+    // history, the question, then the scope reminder
     const messages: ChatMessage[] = [
       { role: 'system', content: ragResult.systemPrompt },
+      ...sanitizeHistory(body.history),
+      { role: 'user', content: question },
+      { role: 'system', content: SCOPE_REMINDER },
     ]
-
-    // Add conversation history for context (last 6 messages)
-    if (body.history && body.history.length > 0) {
-      const recentHistory = body.history.slice(-6)
-      for (const msg of recentHistory) {
-        messages.push({
-          role: msg.role,
-          content: msg.content,
-        })
-      }
-    }
-
-    // Add the current question
-    messages.push({ role: 'user', content: body.message })
 
     // Step 3: Get the LLM provider and stream the response
     const config = getLLMConfig(env)
@@ -195,18 +212,21 @@ router.post('/api/chat', async (request: Request, env: Env) => {
     // Write the source event first
     writer.write(encoder.encode(sourceEvent))
 
-    // Then pipe the LLM stream as content events
+    // Then pipe the LLM stream as content events. If the answer turns into
+    // code, stop the model and tell the widget to replace what it has shown.
     ;(async () => {
       const llmReader = llmStream.getReader()
+      const outputGuard = createOutputGuard()
       try {
         while (true) {
           const { done, value } = await llmReader.read()
           if (done) break
-          const event = `data: ${JSON.stringify({
-            type: 'content',
-            content: value,
-          })}\n\n`
-          await writer.write(encoder.encode(event))
+          if (!outputGuard.push(value)) {
+            await llmReader.cancel()
+            await writer.write(encoder.encode(sseEvent({ type: 'replace', content: REPLIES.code })))
+            break
+          }
+          await writer.write(encoder.encode(sseEvent({ type: 'content', content: value })))
         }
         // Signal end of stream
         await writer.write(
@@ -225,12 +245,7 @@ router.post('/api/chat', async (request: Request, env: Env) => {
     })()
 
     return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
-        ...corsHeaders(env),
-      },
+      headers: { ...SSE_HEADERS, ...corsHeaders(env) },
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Internal server error'

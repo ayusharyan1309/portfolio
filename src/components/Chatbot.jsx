@@ -34,7 +34,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
     {
       role: 'assistant',
       content:
-        "Hi! I'm Ayush's AI assistant. Ask me anything about his skills, experience, projects, or background! 👋",
+        "Hi! I'm Ayush's AI assistant. Ask me about his experience, projects, skills or how to reach him. 👋",
     },
   ])
   const [input, setInput] = useState('')
@@ -270,30 +270,29 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
           const trimmedLine = line.trim()
           if (!trimmedLine || !trimmedLine.startsWith('data: ')) continue
 
+          let data
           try {
-            const data = JSON.parse(trimmedLine.slice(6))
+            data = JSON.parse(trimmedLine.slice(6))
+          } catch {
+            continue // Ignore malformed SSE lines
+          }
 
-            if (data.type === 'content') {
-              // Append streaming content to the assistant message
-              setMessages((prev) => {
-                const updated = [...prev]
-                const last = updated[updated.length - 1]
-                if (last.role === 'assistant') {
-                  updated[updated.length - 1] = {
-                    ...last,
-                    content: last.content + data.content,
-                  }
+          if (data.type === 'content' || data.type === 'replace') {
+            // Append streaming content; 'replace' swaps the whole answer
+            // (the backend's guard stopped an off-topic answer mid-stream)
+            setMessages((prev) => {
+              const updated = [...prev]
+              const last = updated[updated.length - 1]
+              if (last.role === 'assistant') {
+                updated[updated.length - 1] = {
+                  ...last,
+                  content: data.type === 'replace' ? data.content : last.content + data.content,
                 }
-                return updated
-              })
-            } else if (data.type === 'done') {
-              // Stream complete
-            } else if (data.type === 'error') {
-              throw new Error(data.error)
-            }
-          } catch (parseErr) {
-            if (parseErr.message?.startsWith('Server error')) throw parseErr
-            // Ignore malformed SSE lines
+              }
+              return updated
+            })
+          } else if (data.type === 'error') {
+            throw new Error(data.error)
           }
         }
       }
@@ -386,7 +385,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
             <div>
               <p className="text-sm font-semibold text-white">Ayush's AI</p>
               <p className="text-xs text-gray-500">
-                {adminOpen ? '📋 Resume Admin' : 'Ask me anything!'}
+                {adminOpen ? '📋 Resume Admin' : 'Ask about his work'}
               </p>
             </div>
           </div>
@@ -466,6 +465,7 @@ export default function Chatbot({ apiUrl = DEFAULT_API_URL }) {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about Ayush..."
+                  maxLength={500}
                   disabled={isLoading}
                   className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 disabled:opacity-50 focus:outline-none focus:border-lilac/50 focus:ring-1 focus:ring-lilac/20 transition-all"
                 />

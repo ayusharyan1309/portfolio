@@ -32,7 +32,8 @@ from .llm.interface import ChatMessage
 from .llm.factory import LLMProviderFactory
 from .rag.knowledge import build_knowledge_base, KnowledgeChunk
 from .rag.embedder import embed_batch
-from .rag.pipeline import run_rag, run_rag_with_chunks
+from .rag.pipeline import run_rag, run_rag_with_chunks, SCOPE_REMINDER
+from .rag.guard import REPLIES, OutputGuard, check_message, sanitize_history
 from . import resume_manager
 
 logging.basicConfig(level=logging.INFO)
@@ -99,7 +100,8 @@ app.add_middleware(
 
 class ChatRequest(BaseModel):
     message: str
-    history: Optional[List[dict]] = None
+    # Untrusted — validated by guard.sanitize_history, not by the model.
+    history: Optional[list] = None
 
 
 class ActivateRequest(BaseModel):
@@ -148,38 +150,49 @@ async def chat(req: ChatRequest):
     if not req.message or not req.message.strip():
         return {"error": 'Missing "message" field in request body'}
 
+    question = req.message.strip()
+
     async def event_stream() -> AsyncGenerator[str, None]:
         try:
+            # Step 0: Off-topic, code and injection requests never reach the LLM
+            blocked = check_message(question)
+            if blocked:
+                yield f"data: {json.dumps({'type': 'sources', 'sources': []})}\n\n"
+                yield f"data: {json.dumps({'type': 'content', 'content': REPLIES[blocked]})}\n\n"
+                yield f"data: {json.dumps({'type': 'done'})}\n\n"
+                return
+
             # Get all chunks (base + active resume)
             all_chunks = _get_all_chunks()
 
             # Step 1: Run RAG (sync, runs on event loop thread pool)
             import asyncio
             rag_result = await asyncio.to_thread(
-                run_rag_with_chunks, req.message, all_chunks, 5, cfg.embedding_model
+                run_rag_with_chunks, question, all_chunks, 5, cfg.embedding_model
             )
 
-            # Step 2: Build messages for the LLM
+            # Step 2: Build messages for the LLM — system prompt, sanitized
+            # history, the question, then the scope reminder
             messages: list[ChatMessage] = [
                 ChatMessage(role="system", content=rag_result.system_prompt),
+                *(ChatMessage(role=m["role"], content=m["content"]) for m in sanitize_history(req.history)),
+                ChatMessage(role="user", content=question),
+                ChatMessage(role="system", content=SCOPE_REMINDER),
             ]
-
-            # Add conversation history (last 6 messages)
-            if req.history:
-                for msg in req.history[-6:]:
-                    messages.append(ChatMessage(role=msg.get("role", "user"), content=msg.get("content", "")))
-
-            # Add the current question
-            messages.append(ChatMessage(role="user", content=req.message))
 
             # Step 3: Send source metadata first
             yield f"data: {json.dumps({'type': 'sources', 'sources': rag_result.sources})}\n\n"
 
-            # Step 4: Get the LLM provider and stream the response
+            # Step 4: Get the LLM provider and stream the response. If the
+            # answer turns into code, stop and tell the widget to replace it.
             llm_config = get_llm_config(cfg)
             provider = LLMProviderFactory.get_provider(llm_config)
 
+            output_guard = OutputGuard()
             async for chunk in provider.chat(messages):
+                if not output_guard.push(chunk):
+                    yield f"data: {json.dumps({'type': 'replace', 'content': REPLIES['code']})}\n\n"
+                    break
                 yield f"data: {json.dumps({'type': 'content', 'content': chunk})}\n\n"
 
             # Signal end of stream
