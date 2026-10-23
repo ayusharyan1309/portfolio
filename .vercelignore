@@ -1,0 +1,10 @@
+# Never upload private notes or local tooling to Vercel
+job-search/
+.env*
+node_modules/
+dist/
+chatbot/backend/node_modules/
+chatbot/backend-python/
+**/__pycache__/
+*.log
+.DS_Store
