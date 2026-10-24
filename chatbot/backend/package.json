@@ -8,7 +8,7 @@
     "deploy": "wrangler deploy",
     "seed": "npx tsx src/seed.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/rag/guard.test.ts"
+    "test": "tsx --test src/rag/guard.test.ts src/vault.test.ts"
   },
   "dependencies": {
     "itty-router": "^5.0.18"

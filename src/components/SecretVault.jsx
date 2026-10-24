@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
-import { isVault, unlockVault, openVaultWithKey } from '../lib/vaultCrypto'
+import { isVault, openVaultWithKey } from '../lib/vaultCrypto'
 import { fillPlaceholders, renderMarkdown } from '../lib/vaultMarkdown'
 
 // Hidden notes viewer. Opens on 5 quick taps of the navbar brand.
 // public/vault.json is built by scripts/build-vault.mjs and holds only
-// ciphertext; the notes are decrypted here, in the browser, with a passphrase.
+// ciphertext. The chatbot Worker returns the key for the right PIN and locks
+// after 3 wrong ones; the notes are decrypted here, in the browser.
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001'
 
 const KEY_STORE = 'vault:key'
 const FIELDS_STORE = 'vault:fields'
@@ -39,9 +42,9 @@ export default function SecretVault({ isOpen, onClose }) {
   const [state, setState] = useState('idle') // idle | loading | locked | unlocking | ready | missing | error
   const [vault, setVault] = useState(null)
   const [payload, setPayload] = useState(null)
-  const [passphrase, setPassphrase] = useState('')
+  const [pin, setPin] = useState('')
   const [remember, setRemember] = useState(true)
-  const [wrong, setWrong] = useState(false)
+  const [message, setMessage] = useState(null)
   const [active, setActive] = useState(0)
   const [values, setValues] = useState({})
   const [showFields, setShowFields] = useState(true)
@@ -67,7 +70,7 @@ export default function SecretVault({ isOpen, onClose }) {
           setState('ready')
           return
         } catch {
-          store.remove(KEY_STORE) // vault was re-encrypted; ask for the passphrase again
+          store.remove(KEY_STORE) // vault was re-keyed; ask for the PIN again
         }
       }
       setState('locked')
@@ -111,20 +114,35 @@ export default function SecretVault({ isOpen, onClose }) {
 
   const unlock = async (e) => {
     e.preventDefault()
-    if (!passphrase || !vault) return
+    if (!pin || !vault) return
     setState('unlocking')
-    setWrong(false)
+    setMessage(null)
     try {
-      const { payload: opened, rawKey } = await unlockVault(vault, passphrase.trim())
-      if (remember) store.set(KEY_STORE, rawKey)
-      setPassphrase('')
-      setPayload(opened)
-      setActive(0)
-      setState('ready')
+      const res = await fetch(`${API_URL}/api/vault/unlock`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin }),
+      })
+      const data = await res.json().catch(() => ({}))
+      setPin('')
+      if (res.status === 423) {
+        setMessage('Locked after 3 wrong PINs.')
+      } else if (res.status === 401) {
+        setMessage(`Wrong PIN — ${data.attemptsLeft} ${data.attemptsLeft === 1 ? 'try' : 'tries'} left.`)
+      } else if (!res.ok || !data.key) {
+        setMessage('Enter the 6-digit PIN.')
+      } else {
+        const opened = await openVaultWithKey(vault, data.key)
+        if (remember) store.set(KEY_STORE, data.key)
+        setPayload(opened)
+        setActive(0)
+        setState('ready')
+        return
+      }
     } catch {
-      setWrong(true)
-      setState('locked')
+      setMessage("Couldn't reach the unlock service. Try again in a moment.")
     }
+    setState('locked')
   }
 
   const lock = () => {
@@ -234,28 +252,28 @@ export default function SecretVault({ isOpen, onClose }) {
           </>
         ) : state === 'locked' || state === 'unlocking' ? (
           <form onSubmit={unlock} className="flex-1 flex flex-col items-center justify-center gap-4 px-6">
-            <p className="text-gray-400 text-sm text-center">Encrypted notes. Enter your passphrase to open them.</p>
-            <label htmlFor="vault-pass" className="sr-only">Passphrase</label>
+            <p className="text-gray-400 text-sm text-center">Encrypted notes. Enter your PIN to open them.</p>
+            <label htmlFor="vault-pin" className="sr-only">PIN</label>
             <input
-              id="vault-pass"
+              id="vault-pin"
               type="password"
-              value={passphrase}
-              onChange={(e) => setPassphrase(e.target.value)}
-              autoComplete="current-password"
-              autoCapitalize="none"
-              autoCorrect="off"
-              spellCheck={false}
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength={8}
+              value={pin}
+              onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
+              autoComplete="off"
               autoFocus
-              className="w-full max-w-sm rounded-lg border border-white/10 bg-black/20 px-3 py-2.5 text-white focus:outline-none focus:border-amber"
+              className="w-full max-w-[12rem] rounded-lg border border-white/10 bg-black/20 px-3 py-2.5 text-center text-xl tracking-[0.4em] text-white focus:outline-none focus:border-amber"
             />
             <label className="flex items-center gap-2 text-xs text-gray-400">
               <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
               Remember on this device
             </label>
-            {wrong && <p className="text-sm text-red-400">That passphrase didn&apos;t open the notes.</p>}
+            {message && <p className="text-sm text-red-400 text-center">{message}</p>}
             <button
               type="submit"
-              disabled={state === 'unlocking' || !passphrase}
+              disabled={state === 'unlocking' || !pin}
               className="px-5 py-2 text-sm font-semibold text-bg bg-amber rounded-lg hover:bg-amber/90 transition-all disabled:opacity-50"
             >
               {state === 'unlocking' ? 'Opening…' : 'Open'}

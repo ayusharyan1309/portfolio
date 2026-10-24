@@ -1,26 +1,23 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { encryptVault, unlockVault, openVaultWithKey, isVault } from '../src/lib/vaultCrypto.js'
+import { encryptVault, generateKey, openVaultWithKey, isVault } from '../src/lib/vaultCrypto.js'
 import { fillPlaceholders, renderMarkdown } from '../src/lib/vaultMarkdown.js'
 
-const PASS = 'correct-horse-battery-staple-42'
-const payload = { fields: [{ key: 'Company', label: 'Company', value: '' }], files: [{ name: 'Notes', content: 'Expected ₹15 LPA' }] }
+const payload = { fields: [{ key: 'Company', label: 'Company', value: '' }], files: [{ name: 'Notes', content: 'Expected ₹15 LPA in Hyderabad' }] }
 
 test('ciphertext round-trips and never contains the plaintext', async () => {
-  const vault = await encryptVault(payload, PASS)
+  const key = generateKey()
+  const vault = await encryptVault(payload, key)
   assert.ok(isVault(vault))
-  assert.ok(!JSON.stringify(vault).includes('LPA'))
-  const { payload: opened, rawKey } = await unlockVault(vault, PASS)
-  assert.deepEqual(opened, payload)
-  assert.deepEqual(await openVaultWithKey(vault, rawKey), payload)
+  assert.ok(!JSON.stringify(vault).includes('Hyderabad'))
+  assert.deepEqual(await openVaultWithKey(vault, key), payload)
 })
 
-test('wrong passphrase and stale saved key both fail', async () => {
-  const vault = await encryptVault(payload, PASS)
-  await assert.rejects(unlockVault(vault, PASS + 'x'))
-  const { rawKey } = await unlockVault(vault, PASS)
-  const reencrypted = await encryptVault(payload, PASS) // new salt → new key
-  await assert.rejects(openVaultWithKey(reencrypted, rawKey))
+test('a different key, or a re-keyed vault, fails to open', async () => {
+  const key = generateKey()
+  const vault = await encryptVault(payload, key)
+  await assert.rejects(openVaultWithKey(vault, generateKey()))
+  await assert.rejects(openVaultWithKey(await encryptVault(payload, generateKey()), key))
 })
 
 test('placeholders fill from fields; empty ones stay and are highlighted', () => {

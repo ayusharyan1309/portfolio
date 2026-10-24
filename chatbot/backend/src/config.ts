@@ -37,6 +37,11 @@ export interface Env {
   // CORS
   ALLOWED_ORIGINS?: string
   PYTHON_BACKEND_URL?: string
+
+  // Notes viewer unlock (see src/vault.ts); secrets set by `npm run vault:secrets`
+  VAULT_LOCK: DurableObjectNamespace
+  VAULT_KEY?: string
+  VAULT_PIN_HASH?: string
 }
 
 export interface ChatMessage {

@@ -17,3 +17,16 @@ ALLOWED_ORIGINS = "https://ayush-aryan1309-portfolio.vercel.app"
 
 # API keys — set these via `npx wrangler secret put`
 # npx wrangler secret put GROQ_API_KEY  ← the only key you need!
+
+# Wrong-PIN counter for the notes viewer unlock (src/vault.ts).
+# SQLite-backed Durable Objects are available on the Workers free plan.
+[[durable_objects.bindings]]
+name = "VAULT_LOCK"
+class_name = "VaultLock"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["VaultLock"]
+
+# Secrets for the unlock — set with `npm run vault:secrets` from the portfolio root:
+# VAULT_KEY, VAULT_PIN_HASH

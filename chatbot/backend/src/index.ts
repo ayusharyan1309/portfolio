@@ -6,6 +6,7 @@
  * - POST /api/chat            → Chat with RAG (streaming response)
  * - GET  /api/providers       → List available LLM providers
  * - GET  /api/config          → Get current configuration (without secrets)
+ * - POST /api/vault/unlock    → PIN check for the portfolio's notes viewer
  */
 
 import { Router } from 'itty-router'
@@ -14,6 +15,8 @@ import { LLMProviderFactory } from './llm/factory'
 import { runRAG, SCOPE_REMINDER } from './rag/pipeline'
 import { buildKnowledgeBase } from './rag/knowledge'
 import { checkMessage, createOutputGuard, sanitizeHistory, REPLIES } from './rag/guard'
+
+export { VaultLock } from './vault'
 
 // Initialize knowledge base at cold start
 // Embeddings are lazily initialized on first request
@@ -260,6 +263,21 @@ router.post('/api/chat', async (request: Request, env: Env) => {
       }
     )
   }
+})
+
+/**
+ * POST /api/vault/unlock — { pin } → { key } for the right PIN.
+ * One Durable Object instance holds the global wrong-PIN count.
+ */
+router.post('/api/vault/unlock', async (request: Request, env: Env) => {
+  const headers = { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...corsHeaders(env) }
+  const body = await request.text()
+  if (body.length > 200) {
+    return new Response(JSON.stringify({ error: 'bad_request' }), { status: 400, headers })
+  }
+  const lock = env.VAULT_LOCK.get(env.VAULT_LOCK.idFromName('notes-vault'))
+  const res = await lock.fetch('https://vault-lock/unlock', { method: 'POST', body })
+  return new Response(res.body, { status: res.status, headers })
 })
 
 /**
