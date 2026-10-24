@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { seoJsonLd } from './data/portfolio'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -8,8 +9,11 @@ import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
+import SecretVault from './components/SecretVault'
 
 export default function App() {
+  const [showVault, setShowVault] = useState(false)
+
   return (
     <>
       <a href="#hero" className="skip-nav">
@@ -19,7 +23,7 @@ export default function App() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(seoJsonLd) }} />
 
       <div className="min-h-screen bg-bg text-text">
-        <Navbar />
+        <Navbar onOpenVault={() => setShowVault(true)} />
         <main>
           <Hero />
           <Experience />
@@ -31,6 +35,9 @@ export default function App() {
         <Footer />
 
         <Chatbot />
+
+        {/* Encrypted notes viewer (5 quick taps on the navbar name) */}
+        <SecretVault isOpen={showVault} onClose={() => setShowVault(false)} />
       </div>
     </>
   )

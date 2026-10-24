@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { personalInfo } from '../data/portfolio'
 
 const navItems = [
@@ -9,10 +9,12 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ onOpenVault }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const brandClicks = useRef(0)
+  const lastBrandClick = useRef(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +35,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Five quick taps on the name open the encrypted notes viewer.
+  const handleBrandClick = () => {
+    setMobileOpen(false)
+    const now = Date.now()
+    if (now - lastBrandClick.current > 2500) brandClicks.current = 0
+    lastBrandClick.current = now
+    brandClicks.current += 1
+    if (brandClicks.current >= 5) {
+      brandClicks.current = 0
+      onOpenVault?.()
+    }
+  }
+
   const linkClass = (href) =>
     activeSection === href.slice(1) ? 'text-text' : 'text-muted hover:text-text'
 
@@ -45,7 +60,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <a
           href="#hero"
-          onClick={() => setMobileOpen(false)}
+          onClick={handleBrandClick}
           className="font-display text-lg font-semibold text-text select-none"
         >
           {personalInfo.name}
